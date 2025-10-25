@@ -1,6 +1,13 @@
 # llm_clients.py
 """LLM client implementations for various providers."""
 from __future__ import annotations
+import sys
+import os
+
+# Add current directory to path for direct imports
+current_dir = os.path.dirname(os.path.abspath(__file__))
+if current_dir not in sys.path:
+    sys.path.insert(0, current_dir)
 import json
 import socket
 from abc import ABC, abstractmethod

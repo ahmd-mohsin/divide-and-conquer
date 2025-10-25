@@ -122,8 +122,6 @@ class RewardModel:
     ) -> float:
         """Compute penalties for undesired behaviors."""
         penalty = 0.0
-        
-        # Repetition penalty - check if too similar to any existing chain
         if existing_chains:
             new_text = new_chain.get_text()
             for existing in existing_chains:
@@ -131,11 +129,9 @@ class RewardModel:
                 similarity = 1.0 - self.diversity_metrics.compute_diversity(
                     new_text, existing_text
                 )
-                if similarity > 0.9:  # Very similar
+                if similarity > 0.9:  
                     penalty += self.config.repetition_penalty
-        
-        # Length penalty - penalize extremely long chains
-        total_length = sum(len(step.content) for step in chain.steps)
+        total_length = sum(len(step.content) for step in new_chain.steps) 
         if total_length > 3000:
             penalty += self.config.length_penalty_coef * (total_length - 3000) / 1000
         

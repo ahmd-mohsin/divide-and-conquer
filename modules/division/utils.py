@@ -4,18 +4,19 @@ from __future__ import annotations
 import json
 from pathlib import Path
 from typing import Any, Dict, List, Optional
+import sys
+import os
+
+# Add current directory to path for local imports
+current_dir = os.path.dirname(os.path.abspath(__file__))
+if current_dir not in sys.path:
+    sys.path.insert(0, current_dir)
 
 from schemas import Decomposition, SubProblem
 
 
 def save_decomposition(decomp: Decomposition, filepath: str | Path) -> None:
-    """
-    Save a decomposition to a JSON file.
-    
-    Args:
-        decomp: Decomposition to save
-        filepath: Output file path
-    """
+    """Save a decomposition to a JSON file."""
     filepath = Path(filepath)
     filepath.parent.mkdir(parents=True, exist_ok=True)
     
@@ -24,36 +25,17 @@ def save_decomposition(decomp: Decomposition, filepath: str | Path) -> None:
 
 
 def load_decomposition(filepath: str | Path) -> Decomposition:
-    """
-    Load a decomposition from a JSON file.
-    
-    Args:
-        filepath: Input file path
-        
-    Returns:
-        Decomposition object
-    """
+    """Load a decomposition from a JSON file."""
     with open(filepath, "r", encoding="utf-8") as f:
         data = json.load(f)
     return Decomposition(**data)
 
 
 def get_execution_order(decomp: Decomposition) -> List[List[str]]:
-    """
-    Compute a valid execution order respecting dependencies.
-    Returns a list of "waves" where each wave can be executed in parallel.
-    
-    Args:
-        decomp: Decomposition object
-        
-    Returns:
-        List of waves, where each wave is a list of node IDs that can be executed in parallel
-    """
-    # Build dependency graph
+    """Compute a valid execution order respecting dependencies."""
     node_ids = {node.id for node in decomp.nodes}
     in_degree = {node.id: 0 for node in decomp.nodes}
     
-    # Count incoming edges (dependencies)
     for node in decomp.nodes:
         for dep_id in node.depends_on:
             if dep_id in node_ids:
@@ -63,23 +45,18 @@ def get_execution_order(decomp: Decomposition) -> List[List[str]]:
     remaining = set(node_ids)
     
     while remaining:
-        # Find nodes with no dependencies in remaining set
         current_wave = [
             node_id for node_id in remaining
             if in_degree[node_id] == 0
         ]
         
         if not current_wave:
-            # Cycle detected or error
-            raise ValueError(f"Cannot compute execution order: possible cycle or missing dependencies. Remaining nodes: {remaining}")
+            raise ValueError(f"Cannot compute execution order: possible cycle. Remaining: {remaining}")
         
         waves.append(current_wave)
         
-        # Remove current wave from remaining
         for node_id in current_wave:
             remaining.remove(node_id)
-            
-            # Decrease in-degree for dependent nodes
             for node in decomp.nodes:
                 if node_id in node.depends_on:
                     in_degree[node.id] -= 1
@@ -88,12 +65,7 @@ def get_execution_order(decomp: Decomposition) -> List[List[str]]:
 
 
 def print_execution_plan(decomp: Decomposition) -> None:
-    """
-    Print a human-readable execution plan showing parallel waves.
-    
-    Args:
-        decomp: Decomposition object
-    """
+    """Print a human-readable execution plan showing parallel waves."""
     try:
         waves = get_execution_order(decomp)
         
@@ -117,19 +89,12 @@ def print_execution_plan(decomp: Decomposition) -> None:
 
 
 def export_to_graphviz(decomp: Decomposition, filepath: str | Path) -> None:
-    """
-    Export decomposition as Graphviz DOT file for visualization.
-    
-    Args:
-        decomp: Decomposition object
-        filepath: Output .dot file path
-    """
+    """Export decomposition as Graphviz DOT file."""
     lines = ["digraph HCOT {"]
     lines.append('  rankdir=TB;')
     lines.append('  node [shape=box, style=rounded];')
     lines.append('')
     
-    # Add nodes
     for node in decomp.nodes:
         label = f"{node.id}\\n{node.goal[:40]}"
         if len(node.goal) > 40:
@@ -138,12 +103,10 @@ def export_to_graphviz(decomp: Decomposition, filepath: str | Path) -> None:
     
     lines.append('')
     
-    # Add parent-child edges (hierarchy)
     for node in decomp.nodes:
         if node.parent_id:
             lines.append(f'  "{node.parent_id}" -> "{node.id}" [color=black];')
     
-    # Add dependency edges
     for node in decomp.nodes:
         for dep_id in node.depends_on:
             lines.append(f'  "{dep_id}" -> "{node.id}" [color=red, style=dashed];')
@@ -154,19 +117,10 @@ def export_to_graphviz(decomp: Decomposition, filepath: str | Path) -> None:
         f.write("\n".join(lines))
     
     print(f"Graphviz DOT file saved to: {filepath}")
-    print(f"Visualize with: dot -Tpng {filepath} -o {Path(filepath).stem}.png")
 
 
 def get_statistics(decomp: Decomposition) -> Dict[str, Any]:
-    """
-    Compute statistics about the decomposition.
-    
-    Args:
-        decomp: Decomposition object
-        
-    Returns:
-        Dictionary of statistics
-    """
+    """Compute statistics about the decomposition."""
     stats = {
         "total_nodes": len(decomp.nodes),
         "root_nodes": len(decomp.get_root_nodes()),
@@ -178,7 +132,6 @@ def get_statistics(decomp: Decomposition) -> Dict[str, Any]:
         "check_types": {},
     }
     
-    # Compute depths
     def get_depth(node_id: str) -> int:
         node = decomp.get_node(node_id)
         if not node or not node.parent_id:
@@ -202,7 +155,6 @@ def get_statistics(decomp: Decomposition) -> Dict[str, Any]:
             stats["nodes_with_dependencies"] += 1
             stats["total_dependencies"] += len(node.depends_on)
         
-        # Count check types
         check = node.suggested_check.value
         stats["check_types"][check] = stats["check_types"].get(check, 0) + 1
     
@@ -233,12 +185,7 @@ def print_statistics(decomp: Decomposition) -> None:
 
 
 def validate_node_id_uniqueness(decomp: Decomposition) -> tuple[bool, List[str]]:
-    """
-    Check if all node IDs are unique.
-    
-    Returns:
-        (is_valid, list_of_duplicate_ids)
-    """
+    """Check if all node IDs are unique."""
     seen = set()
     duplicates = []
     
