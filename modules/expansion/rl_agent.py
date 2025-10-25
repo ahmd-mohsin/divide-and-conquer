@@ -1,8 +1,9 @@
 # rl_agent.py
-"""PPO agent for learning to generate diverse CoT chains."""
 import sys
 import os
-sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'division'))
+parent_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+if parent_dir not in sys.path:
+    sys.path.insert(0, parent_dir)
 
 from typing import List, Optional, Dict, Any
 import numpy as np
@@ -16,7 +17,7 @@ from stable_baselines3.common.monitor import Monitor
 from expansion_config import ExpansionConfig
 from rl_environment import CoTExpansionEnv
 from expansion_schemas import SubProblemExpansion, ExpansionResult, CoTChain
-from expansion_schemas import SubProblem, Decomposition
+from division.schemas import SubProblem, Decomposition
 
 
 class HierarchicalRLAgent:

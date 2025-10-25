@@ -1,10 +1,21 @@
 # reward_model.py
-"""Reward model for RL agent."""
 from typing import List, Tuple
 import numpy as np
-from expansion_schemas import CoTChain
-from expansion_config import RewardConfig
-from diversity_metrics import DiversityMetrics
+import sys
+import os
+parent_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+if parent_dir not in sys.path:
+    sys.path.insert(0, parent_dir)
+try:
+    from expansion_schemas import CoTChain
+    from expansion_config import RewardConfig
+    from diversity_metrics import DiversityMetrics
+except ImportError:
+    # If running as a module
+    from expansion_schemas import CoTChain
+    from expansion_config import RewardConfig
+    from diversity_metrics import DiversityMetrics
+
 
 class RewardModel:
     """Compute rewards for generated chains."""

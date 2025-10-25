@@ -6,13 +6,15 @@ import numpy as np
 from typing import List, Dict, Any, Optional, Tuple
 import sys
 import os
-sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'division'))
+parent_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+if parent_dir not in sys.path:
+    sys.path.insert(0, parent_dir)
 
-from expansion_schemas import CoTChain, RLState, RLAction
-from expansion_config import ExpansionConfig
-from cot_generator import CoTGenerator
-from reward_model import RewardModel
-from expansion_schemas import SubProblem  # From division module
+from division.schemas import SubProblem
+from expansion.expansion_schemas import CoTChain, RLState, RLAction
+from expansion.expansion_config import ExpansionConfig
+from expansion.cot_generator import CoTGenerator
+from expansion.reward_model import RewardModel
 
 
 class CoTExpansionEnv(gym.Env):
