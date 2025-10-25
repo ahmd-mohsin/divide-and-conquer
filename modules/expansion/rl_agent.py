@@ -16,7 +16,7 @@ from stable_baselines3.common.monitor import Monitor
 from expansion_config import ExpansionConfig
 from rl_environment import CoTExpansionEnv
 from expansion_schemas import SubProblemExpansion, ExpansionResult, CoTChain
-from schemas import SubProblem, Decomposition
+from expansion_schemas import SubProblem, Decomposition
 
 
 class HierarchicalRLAgent:

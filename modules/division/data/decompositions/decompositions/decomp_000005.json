@@ -1,0 +1,64 @@
+{
+  "problem": "Solve -42*r + 27*c = -1167 and 130*r + 4*c = 372 for r.",
+  "depth_limit": 3,
+  "branching_limit": 3,
+  "nodes": [
+    {
+      "id": "1",
+      "parent_id": null,
+      "goal": "Isolate variable c in the first equation",
+      "plan": "Subtract -27*c from both sides of the first equation",
+      "depends_on": [],
+      "hint": null,
+      "suggested_check": "algebra_equiv",
+      "expected_form": null
+    },
+    {
+      "id": "2",
+      "parent_id": null,
+      "goal": "Isolate variable r in the second equation",
+      "plan": "Subtract 4*c from both sides of the second equation",
+      "depends_on": [],
+      "hint": null,
+      "suggested_check": "algebra_equiv",
+      "expected_form": null
+    },
+    {
+      "id": "3",
+      "parent_id": "1",
+      "goal": "Eliminate c by substituting its expression into the second equation",
+      "plan": "Substitute the isolated c from node 1 into the second equation",
+      "depends_on": [
+        "1"
+      ],
+      "hint": null,
+      "suggested_check": "algebra_equiv",
+      "expected_form": null
+    },
+    {
+      "id": "4",
+      "parent_id": "2",
+      "goal": "Eliminate c by substituting its expression into the first equation",
+      "plan": "Substitute the isolated r from node 2 into the first equation",
+      "depends_on": [
+        "2"
+      ],
+      "hint": null,
+      "suggested_check": "algebra_equiv",
+      "expected_form": null
+    },
+    {
+      "id": "5",
+      "parent_id": null,
+      "goal": "Solve for r in the modified second equation",
+      "plan": "Apply algebraic manipulations to isolate r",
+      "depends_on": [
+        "3",
+        "4"
+      ],
+      "hint": null,
+      "suggested_check": "numeric_equal",
+      "expected_form": null
+    }
+  ]
+}

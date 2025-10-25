@@ -1,0 +1,57 @@
+{
+  "problem": "-42*r + 27*c = -1167 and 130*r + 4*c = 372 for r.",
+  "depth_limit": 3,
+  "branching_limit": 3,
+  "nodes": [
+    {
+      "id": "1",
+      "parent_id": null,
+      "goal": "Solve the system of equations for variable r.",
+      "plan": "Use elimination method to eliminate one variable by making their coefficients equal.",
+      "depends_on": [],
+      "hint": null,
+      "suggested_check": "numeric_equal",
+      "expected_form": "r = [number]"
+    },
+    {
+      "id": "2",
+      "parent_id": "1",
+      "goal": "Isolate c in the second equation.",
+      "plan": "Solve for c using algebraic manipulation from 130*r +4*c=372.",
+      "depends_on": [],
+      "hint": null,
+      "suggested_check": "algebra_equiv",
+      "expected_form": "c = [expression] in terms of r"
+    },
+    {
+      "id": "3",
+      "parent_id": "1",
+      "goal": "Substitute c into the first equation and solve for r.",
+      "plan": "Replace c in -42*r + 27*c=-1167 with the expression from step 2.",
+      "depends_on": [],
+      "hint": null,
+      "suggested_check": "numeric_equal",
+      "expected_form": "r = [number]"
+    },
+    {
+      "id": "4",
+      "parent_id": "3",
+      "goal": "Simplify and solve for r numerically.",
+      "plan": "Perform arithmetic operations to find the value of r from the substituted equation.",
+      "depends_on": [],
+      "hint": null,
+      "suggested_check": "numeric_equal",
+      "expected_form": "r = [number]"
+    },
+    {
+      "id": "5",
+      "parent_id": "4",
+      "goal": "Verify solution by plugging back into both equations.",
+      "plan": "Substitute r and c values into original equations to ensure they hold true.",
+      "depends_on": [],
+      "hint": null,
+      "suggested_check": "numeric_equal",
+      "expected_form": "Both equations satisfied."
+    }
+  ]
+}

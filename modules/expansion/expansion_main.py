@@ -10,25 +10,38 @@ from typing import Optional
 
 from expansion_config import ExpansionConfig, CoTConfig, RLConfig, RewardConfig
 from rl_agent import HierarchicalRLAgent
-from schemas import Decomposition
-from utils import load_decomposition, save_decomposition
+from dataset_loader import DecompositionLoader
+from expansion_schemas import ExpansionResult
+import time
 
 
-def train_rl_agent_example():
-    """Example: Train the RL agent on sub-problems."""
+def train_rl_agent():
+    """Train the RL agent on decomposed sub-problems."""
     print("\n" + "="*70)
     print("HCOT MODULE 2: Training RL Agent for CoT Expansion")
     print("="*70 + "\n")
     
-    # Load example decomposition from Module 1
-    decomp_path = "../division/example_decomposition.json"
-    if Path(decomp_path).exists():
-        decomp = load_decomposition(decomp_path)
-        subproblems = decomp.nodes
-    else:
-        print(f"No decomposition found at {decomp_path}")
-        print("Please run Module 1 first to generate a decomposition.")
+    # Load dataset
+    try:
+        loader = DecompositionLoader(dataset_dir="../division/data/decompositions")
+    except FileNotFoundError as e:
+        print(f"✗ {e}")
+        print("\nPlease run batch_decompose.py first:")
+        print("  cd ../division")
+        print("  python batch_decompose.py --num-problems 50")
         return
+    
+    # Get all sub-problems for training
+    print("\nExtracting sub-problems from dataset...")
+    subproblems = loader.get_all_subproblems(max_decomps=100)
+    print(f"✓ Loaded {len(subproblems)} sub-problems for training")
+    
+    # Show statistics
+    stats = loader.get_statistics()
+    print(f"\nDataset statistics:")
+    print(f"  Total decompositions: {stats['total_decompositions']}")
+    print(f"  Total sub-problems: {stats['total_subproblems']}")
+    print(f"  Categories: {', '.join(stats['categories'].keys())}")
     
     # Create config
     config = ExpansionConfig(
@@ -40,8 +53,9 @@ def train_rl_agent_example():
         ),
         rl=RLConfig(
             learning_rate=3e-4,
-            total_timesteps=10000,  # Start small for testing
+            total_timesteps=50000,  # Increase for better results
             ent_coef=0.05,  # High entropy = more exploration
+            save_freq=5000,
         ),
         reward=RewardConfig(
             diversity_weight=0.6,  # Prioritize diversity
@@ -54,33 +68,46 @@ def train_rl_agent_example():
     agent = HierarchicalRLAgent(config)
     
     # Train
-    stats = agent.train(
+    print(f"\nStarting training...")
+    start_time = time.time()
+    
+    train_stats = agent.train(
         subproblems=subproblems,
-        n_envs=1  # Start with 1, increase to 4-8 for faster training
+        n_envs=1  # Increase to 4-8 for faster training
     )
     
-    print("\n✓ Training complete!")
-    print(f"Model saved to: {stats['final_model_path']}")
+    elapsed = time.time() - start_time
+    
+    print(f"\n{'='*70}")
+    print(f"Training complete!")
+    print(f"{'='*70}")
+    print(f"Time elapsed: {elapsed/60:.1f} minutes")
+    print(f"Model saved to: {train_stats['final_model_path']}")
+    print(f"{'='*70}\n")
 
 
-def expand_problem_example(use_trained_model: bool = False):
-    """Example: Expand a decomposition into CoT chains."""
+def expand_dataset(use_trained_model: bool = False, max_problems: int = 10):
+    """Expand decompositions from dataset into CoT chains."""
     print("\n" + "="*70)
-    print("HCOT MODULE 2: Expanding Sub-Problems into CoT Chains")
+    print("HCOT MODULE 2: Expanding Decompositions into CoT Chains")
     print("="*70 + "\n")
     
-    # Load decomposition
-    decomp_path = "../division/example_decomposition.json"
-    if not Path(decomp_path).exists():
-        print(f"No decomposition found. Please run Module 1 first.")
+    # Load dataset
+    try:
+        loader = DecompositionLoader(dataset_dir="../division/data/decompositions")
+    except FileNotFoundError as e:
+        print(f"✗ {e}")
         return
     
-    decomp = load_decomposition(decomp_path)
+    # Get sample decompositions
+    print(f"Loading {max_problems} decompositions...")
+    decomps_with_meta = loader.get_sample(n=max_problems, seed=42)
+    print(f"✓ Loaded {len(decomps_with_meta)} decompositions\n")
     
     # Create config
     config = ExpansionConfig(
         cot=CoTConfig(
-            num_chains=3,  # Fewer for quick demo
+            num_chains=5,
             model="deepseek-r1:7b"
         )
     )
@@ -93,38 +120,73 @@ def expand_problem_example(use_trained_model: bool = False):
         model_path = f"{config.model_save_path}/ppo_cot_agent_final"
         if Path(f"{model_path}.zip").exists():
             agent.load_model(model_path)
+            print(f"✓ Loaded trained model from {model_path}\n")
         else:
-            print(f"No trained model found at {model_path}")
-            print("Using random policy instead.")
+            print(f"⚠ No trained model found at {model_path}")
+            print("Using random policy instead.\n")
             use_trained_model = False
     
-    # Expand
-    result = agent.expand_decomposition(
-        decomposition=decomp,
-        use_learned_policy=use_trained_model
-    )
+    # Expand each decomposition
+    all_results = []
     
-    # Save result
-    result_path = f"{config.results_path}/expansion_result.json"
-    Path(config.results_path).mkdir(exist_ok=True)
-    with open(result_path, 'w') as f:
-        json.dump(result.model_dump(), f, indent=2)
+    for i, (decomp, meta) in enumerate(decomps_with_meta, 1):
+        print(f"\n{'='*70}")
+        print(f"Expanding {i}/{len(decomps_with_meta)}")
+        print(f"{'='*70}")
+        print(f"Problem: {meta['problem'][:80]}...")
+        print(f"Category: {meta['category']}")
+        print(f"Model: {meta['model']}")
+        
+        # Expand
+        result = agent.expand_decomposition(
+            decomposition=decomp,
+            use_learned_policy=use_trained_model
+        )
+        
+        # Add metadata
+        result.training_metadata = {
+            "original_problem": meta["problem"],
+            "expected_answer": meta["answer"],
+            "category": meta["category"],
+            "decomposition_model": meta["model"],
+            "decomposition_id": meta["id"],
+        }
+        
+        all_results.append(result)
     
-    print(f"\n✓ Results saved to: {result_path}")
+    # Save results
+    results_dir = Path(config.results_path) / "expansions"
+    results_dir.mkdir(parents=True, exist_ok=True)
     
-    # Show example chains
-    print("\n" + "="*70)
-    print("EXAMPLE CHAINS (First Sub-Problem)")
-    print("="*70)
-    if result.subproblem_expansions:
-        expansion = result.subproblem_expansions[0]
-        print(f"\nSub-problem: {expansion.subproblem_goal}")
-        for i, chain in enumerate(expansion.chains[:2], 1):  # Show first 2
-            print(f"\n--- Chain {i} (Strategy: {chain.strategy}) ---")
-            for step in chain.steps[:3]:  # Show first 3 steps
-                print(f"Step {step.step_number}: {step.content[:100]}...")
-            if chain.final_answer:
-                print(f"Final Answer: {chain.final_answer[:100]}")
+    for i, result in enumerate(all_results):
+        result_file = results_dir / f"expansion_{i:03d}.json"
+        with open(result_file, 'w') as f:
+            json.dump(result.model_dump(), f, indent=2)
+    
+    # Save summary
+    summary = {
+        "total_decompositions": len(all_results),
+        "total_subproblems": sum(len(r.subproblem_expansions) for r in all_results),
+        "total_chains": sum(r.total_chains for r in all_results),
+        "avg_diversity": sum(r.avg_diversity for r in all_results) / len(all_results),
+        "avg_quality": sum(r.avg_quality for r in all_results) / len(all_results),
+        "used_trained_model": use_trained_model,
+    }
+    
+    summary_file = results_dir / "expansion_summary.json"
+    with open(summary_file, 'w') as f:
+        json.dump(summary, f, indent=2)
+    
+    print(f"\n{'='*70}")
+    print(f"Expansion Complete")
+    print(f"{'='*70}")
+    print(f"Total decompositions: {summary['total_decompositions']}")
+    print(f"Total sub-problems: {summary['total_subproblems']}")
+    print(f"Total chains: {summary['total_chains']}")
+    print(f"Avg diversity: {summary['avg_diversity']:.3f}")
+    print(f"Avg quality: {summary['avg_quality']:.3f}")
+    print(f"\n✓ Results saved to: {results_dir}")
+    print(f"{'='*70}\n")
 
 
 if __name__ == "__main__":
@@ -132,17 +194,19 @@ if __name__ == "__main__":
     
     parser = argparse.ArgumentParser(description="HCOT Module 2: CoT Expansion with RL")
     parser.add_argument("--train", action="store_true", help="Train the RL agent")
-    parser.add_argument("--expand", action="store_true", help="Expand a decomposition")
-    parser.add_argument("--use-trained", action="store_true", help="Use trained model for expansion")
+    parser.add_argument("--expand", action="store_true", help="Expand decompositions")
+    parser.add_argument("--use-trained", action="store_true", help="Use trained model")
+    parser.add_argument("--max-problems", type=int, default=10, help="Max problems to expand")
     
     args = parser.parse_args()
     
     if args.train:
-        train_rl_agent_example()
+        train_rl_agent()
     elif args.expand:
-        expand_problem_example(use_trained_model=args.use_trained)
+        expand_dataset(use_trained_model=args.use_trained, max_problems=args.max_problems)
     else:
         print("Usage:")
-        print("  python expansion_main.py --train              # Train RL agent")
-        print("  python expansion_main.py --expand             # Expand with random policy")
-        print("  python expansion_main.py --expand --use-trained  # Expand with trained agent")
+        print("  python expansion_main.py --train                    # Train RL agent")
+        print("  python expansion_main.py --expand                   # Expand with random policy")
+        print("  python expansion_main.py --expand --use-trained     # Expand with trained agent")
+        print("  python expansion_main.py --expand --max-problems 20 # Expand 20 problems")

@@ -1,0 +1,57 @@
+{
+  "problem": "Solve -42*r + 27*c = -1167 and 130*r + 4*c = 372 for r.",
+  "depth_limit": 3,
+  "branching_limit": 3,
+  "nodes": [
+    {
+      "id": "1",
+      "parent_id": null,
+      "goal": "Isolate the first equation by moving all terms to one side",
+      "plan": "Apply algebraic manipulation to combine like terms and move constants to the right side",
+      "depends_on": [],
+      "hint": null,
+      "suggested_check": "algebra_equiv",
+      "expected_form": null
+    },
+    {
+      "id": "2",
+      "parent_id": "1",
+      "goal": "Isolate variable c in the first equation",
+      "plan": "Use algebraic manipulation to isolate c on one side of the equation",
+      "depends_on": [],
+      "hint": null,
+      "suggested_check": "algebra_equiv",
+      "expected_form": null
+    },
+    {
+      "id": "3",
+      "parent_id": "2",
+      "goal": "Eliminate c from both equations by substitution or elimination",
+      "plan": "Use algebraic manipulation to eliminate c and obtain an equation with only r as the variable",
+      "depends_on": [],
+      "hint": null,
+      "suggested_check": "algebra_equiv",
+      "expected_form": null
+    },
+    {
+      "id": "4",
+      "parent_id": null,
+      "goal": "Isolate the second equation by moving all terms to one side",
+      "plan": "Apply algebraic manipulation to combine like terms and move constants to the right side",
+      "depends_on": [],
+      "hint": null,
+      "suggested_check": "algebra_equiv",
+      "expected_form": null
+    },
+    {
+      "id": "5",
+      "parent_id": "4",
+      "goal": "Isolate variable c in the second equation",
+      "plan": "Use algebraic manipulation to isolate c on one side of the equation",
+      "depends_on": [],
+      "hint": null,
+      "suggested_check": "algebra_equiv",
+      "expected_form": null
+    }
+  ]
+}

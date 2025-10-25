@@ -1,0 +1,51 @@
+{
+  "problem": "-42*r + 27*c = -1167 and 130*r + 4*c = 372 for r",
+  "depth_limit": 3,
+  "branching_limit": 3,
+  "nodes": [
+    {
+      "id": "1",
+      "parent_id": null,
+      "goal": "Solve the system of equations for variable r.",
+      "plan": "Use elimination method to eliminate one variable by manipulating both equations.",
+      "depends_on": [],
+      "hint": null,
+      "suggested_check": "numeric_equal",
+      "expected_form": "r = [value]"
+    },
+    {
+      "id": "2",
+      "parent_id": "1",
+      "goal": "Isolate c in the second equation.",
+      "plan": "Solve 130*r + 4*c = 372 for c by subtracting 130*r and dividing by 4.",
+      "depends_on": [
+        "1"
+      ],
+      "hint": null,
+      "suggested_check": "algebra_equiv",
+      "expected_form": "c = [expression in terms of r]"
+    },
+    {
+      "id": "3",
+      "parent_id": "1",
+      "goal": "Substitute c into the first equation.",
+      "plan": "Replace c in -42*r + 27*c = -1167 with the expression from step 2 and solve for r.",
+      "depends_on": [
+        "2"
+      ],
+      "hint": null,
+      "suggested_check": "algebra_equiv",
+      "expected_form": "r = [value]"
+    },
+    {
+      "id": "4",
+      "parent_id": null,
+      "goal": "Simplify the equation to find numerical value of c.",
+      "plan": "Once r is known from step 3, substitute back into one of the original equations to solve for c.",
+      "depends_on": [],
+      "hint": null,
+      "suggested_check": "numeric_equal",
+      "expected_form": "c = [value]"
+    }
+  ]
+}

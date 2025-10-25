@@ -1,0 +1,27 @@
+{
+  "problem": "-5*a + 3 = -17 for a.",
+  "depth_limit": 3,
+  "branching_limit": 3,
+  "nodes": [
+    {
+      "id": "1",
+      "parent_id": null,
+      "goal": "Isolate variable 'a' on one side of the equation.",
+      "plan": "Subtract 3 from both sides to eliminate the constant term on the left.",
+      "depends_on": [],
+      "hint": null,
+      "suggested_check": "numeric_equal",
+      "expected_form": "a = [number]"
+    },
+    {
+      "id": "2",
+      "parent_id": null,
+      "goal": "Simplify the equation after isolating 'a'.",
+      "plan": "Divide both sides by -5 to solve for 'a'.",
+      "depends_on": [],
+      "hint": null,
+      "suggested_check": "algebra_equiv",
+      "expected_form": "a = [number]"
+    }
+  ]
+}

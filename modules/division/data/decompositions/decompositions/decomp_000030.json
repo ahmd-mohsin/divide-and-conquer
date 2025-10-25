@@ -1,0 +1,47 @@
+{
+  "problem": "Solve -42*r + 27*c = -1167 and 130*r + 4*c = 372 for r.",
+  "depth_limit": 3,
+  "branching_limit": 3,
+  "nodes": [
+    {
+      "id": "1",
+      "parent_id": null,
+      "goal": "Isolate variable c in the first equation",
+      "plan": "Subtract -42*r from both sides, then divide by 27",
+      "depends_on": [],
+      "hint": null,
+      "suggested_check": "numeric_equal",
+      "expected_form": "c = [number]"
+    },
+    {
+      "id": "2",
+      "parent_id": null,
+      "goal": "Isolate variable c in the second equation",
+      "plan": "Subtract 130*r from both sides, then divide by 4",
+      "depends_on": [],
+      "hint": null,
+      "suggested_check": "numeric_equal",
+      "expected_form": "c = [number]"
+    },
+    {
+      "id": "3",
+      "parent_id": null,
+      "goal": "Substitute the value of c into one of the original equations",
+      "plan": "Use either equation, substitute c from node 1 or 2",
+      "depends_on": [],
+      "hint": null,
+      "suggested_check": "numeric_equal",
+      "expected_form": "-42*r + [number] = -1167"
+    },
+    {
+      "id": "4",
+      "parent_id": null,
+      "goal": "Solve for r in the resulting equation",
+      "plan": "Isolate variable r, then solve for its value",
+      "depends_on": [],
+      "hint": null,
+      "suggested_check": "numeric_equal",
+      "expected_form": "r = [number]"
+    }
+  ]
+}

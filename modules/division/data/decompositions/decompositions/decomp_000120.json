@@ -1,0 +1,53 @@
+{
+  "problem": "-42*r + 27*c = -1167 and 130*r + 4*c = 372 for r.",
+  "depth_limit": 3,
+  "branching_limit": 3,
+  "nodes": [
+    {
+      "id": "1",
+      "parent_id": null,
+      "goal": "Solve the system of equations for variable r.",
+      "plan": "Use elimination method to eliminate one variable by manipulating both equations.",
+      "depends_on": [],
+      "hint": null,
+      "suggested_check": "algebra_equiv",
+      "expected_form": "r = [value]"
+    },
+    {
+      "id": "2",
+      "parent_id": "1",
+      "goal": "Isolate c in the second equation.",
+      "plan": "Solve 130*r + 4*c = 372 for c by subtracting 130*r and dividing by 4.",
+      "depends_on": [
+        "1"
+      ],
+      "hint": null,
+      "suggested_check": "algebra_equiv",
+      "expected_form": "c = [expression in terms of r]"
+    },
+    {
+      "id": "3",
+      "parent_id": "1",
+      "goal": "Substitute c into the first equation.",
+      "plan": "Take the expression for c from equation 2 and plug it into equation 1 to solve for r.",
+      "depends_on": [
+        "2"
+      ],
+      "hint": null,
+      "suggested_check": "algebra_equiv",
+      "expected_form": "r = [value]"
+    },
+    {
+      "id": "4",
+      "parent_id": "3",
+      "goal": "Solve the resulting equation for r.",
+      "plan": "Simplify and solve 1089*r = -657, then divide both sides by 1089 to find r.",
+      "depends_on": [
+        "3"
+      ],
+      "hint": null,
+      "suggested_check": "numeric_equal",
+      "expected_form": "-6"
+    }
+  ]
+}

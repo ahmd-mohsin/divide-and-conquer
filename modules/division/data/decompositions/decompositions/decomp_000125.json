@@ -1,0 +1,37 @@
+{
+  "problem": "-42*r + 27*c = -1167 and 130*r + 4*c = 372 for r.",
+  "depth_limit": 3,
+  "branching_limit": 3,
+  "nodes": [
+    {
+      "id": "1",
+      "parent_id": null,
+      "goal": "Solve the system of equations for variable r.",
+      "plan": "Use elimination method to eliminate one variable by manipulating both equations.",
+      "depends_on": [],
+      "hint": null,
+      "suggested_check": "algebra_equiv",
+      "expected_form": "r = [value]"
+    },
+    {
+      "id": "2",
+      "parent_id": "1",
+      "goal": "Isolate c in the second equation.",
+      "plan": "Solve 130*r + 4*c = 372 for c by subtracting 130*r and dividing by 4.",
+      "depends_on": [],
+      "hint": null,
+      "suggested_check": "algebra_equiv",
+      "expected_form": "c = [expression in terms of r]"
+    },
+    {
+      "id": "3",
+      "parent_id": "1",
+      "goal": "Substitute c into the first equation to solve for r.",
+      "plan": "Take the expression for c from equation 2 and plug it into equation 1, then solve for r using algebraic manipulation.",
+      "depends_on": [],
+      "hint": null,
+      "suggested_check": "algebra_equiv",
+      "expected_form": "r = [value]"
+    }
+  ]
+}

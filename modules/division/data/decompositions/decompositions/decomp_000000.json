@@ -1,0 +1,66 @@
+{
+  "problem": "Solve -42*r + 27*c = -1167 and 130*r + 4*c = 372 for r.",
+  "depth_limit": 3,
+  "branching_limit": 3,
+  "nodes": [
+    {
+      "id": "1",
+      "parent_id": null,
+      "goal": "Isolate the system of equations by combining like terms and eliminating variables",
+      "plan": "Rearrange both equations to group r and c terms separately, then subtract one equation from the other to eliminate c.",
+      "depends_on": [],
+      "hint": null,
+      "suggested_check": "algebra_equiv",
+      "expected_form": null
+    },
+    {
+      "id": "2",
+      "parent_id": "1",
+      "goal": "Rearrange -42*r + 27*c = -1167 to group r and c terms separately",
+      "plan": "Add 42*r to both sides, then divide by 27.",
+      "depends_on": [
+        "1"
+      ],
+      "hint": null,
+      "suggested_check": "algebra_equiv",
+      "expected_form": null
+    },
+    {
+      "id": "3",
+      "parent_id": "1",
+      "goal": "Rearrange 130*r + 4*c = 372 to group r and c terms separately",
+      "plan": "Subtract 4*c from both sides, then divide by 130.",
+      "depends_on": [
+        "1"
+      ],
+      "hint": null,
+      "suggested_check": "algebra_equiv",
+      "expected_form": null
+    },
+    {
+      "id": "4",
+      "parent_id": "2",
+      "goal": "Eliminate c by subtracting the rearranged second equation from the first",
+      "plan": "Subtract the result of node 3 from the result of node 2.",
+      "depends_on": [
+        "2",
+        "3"
+      ],
+      "hint": null,
+      "suggested_check": "algebra_equiv",
+      "expected_form": null
+    },
+    {
+      "id": "5",
+      "parent_id": "4",
+      "goal": "Solve for r in the resulting equation",
+      "plan": "Divide both sides by the coefficient of r.",
+      "depends_on": [
+        "4"
+      ],
+      "hint": null,
+      "suggested_check": "numeric_equal",
+      "expected_form": null
+    }
+  ]
+}

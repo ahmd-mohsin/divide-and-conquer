@@ -1,0 +1,17 @@
+{
+  "problem": "Solve -42*r + 27*c = -1167 and 130*r + 4*c = 372 for r.",
+  "depth_limit": 3,
+  "branching_limit": 3,
+  "nodes": [
+    {
+      "id": "1",
+      "parent_id": null,
+      "goal": "Solve the system of linear equations for r and c.",
+      "plan": "Use substitution or elimination method to solve for one variable in terms of another, then substitute back to find both variables.",
+      "depends_on": [],
+      "hint": null,
+      "suggested_check": "numeric_equal",
+      "expected_form": "r = [number], c = [number]"
+    }
+  ]
+}

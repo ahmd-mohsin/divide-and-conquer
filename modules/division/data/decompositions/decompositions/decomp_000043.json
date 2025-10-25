@@ -1,0 +1,39 @@
+{
+  "problem": "Solve -5*a + 3 = -17 for a.",
+  "depth_limit": 3,
+  "branching_limit": 3,
+  "nodes": [
+    {
+      "id": "1",
+      "parent_id": null,
+      "goal": "Isolate the constant term on one side of the equation",
+      "plan": "Add 5*a to both sides and subtract 3 from both sides",
+      "depends_on": [],
+      "hint": null,
+      "suggested_check": "algebra_equiv",
+      "expected_form": null
+    },
+    {
+      "id": "2",
+      "parent_id": "1",
+      "goal": "Isolate the variable term on one side of the equation",
+      "plan": "Divide both sides by -5",
+      "depends_on": [
+        "1"
+      ],
+      "hint": null,
+      "suggested_check": "numeric_equal",
+      "expected_form": null
+    },
+    {
+      "id": "3",
+      "parent_id": null,
+      "goal": "Solve for a",
+      "plan": "Apply the inverse operation of the one used in step 2",
+      "depends_on": [],
+      "hint": null,
+      "suggested_check": "numeric_equal",
+      "expected_form": null
+    }
+  ]
+}

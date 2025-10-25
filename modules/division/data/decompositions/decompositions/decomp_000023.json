@@ -1,0 +1,29 @@
+{
+  "problem": "Solve -5*a + 3 = -17 for a.",
+  "depth_limit": 3,
+  "branching_limit": 3,
+  "nodes": [
+    {
+      "id": "1",
+      "parent_id": null,
+      "goal": "Isolate constant term on right side",
+      "plan": "Add 5*a to both sides of the equation",
+      "depends_on": [],
+      "hint": null,
+      "suggested_check": "algebra_equiv",
+      "expected_form": null
+    },
+    {
+      "id": "2",
+      "parent_id": "1",
+      "goal": "Isolate variable a on left side",
+      "plan": "Divide both sides by -5",
+      "depends_on": [
+        "1"
+      ],
+      "hint": null,
+      "suggested_check": "numeric_equal",
+      "expected_form": null
+    }
+  ]
+}

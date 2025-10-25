@@ -1,0 +1,27 @@
+{
+  "problem": "Solve 3*x + 7 = 22 for x.",
+  "depth_limit": 3,
+  "branching_limit": 3,
+  "nodes": [
+    {
+      "id": "1",
+      "parent_id": null,
+      "goal": "Isolate the term with variable x on one side of the equation.",
+      "plan": "Subtract 7 from both sides to eliminate the constant term on the left.",
+      "depends_on": [],
+      "hint": null,
+      "suggested_check": "numeric_equal",
+      "expected_form": "3*x = 15"
+    },
+    {
+      "id": "2",
+      "parent_id": "1",
+      "goal": "Simplify the equation by performing the subtraction operation.",
+      "plan": "Calculate 22 - 7 to get 15, resulting in 3*x = 15.",
+      "depends_on": [],
+      "hint": null,
+      "suggested_check": "numeric_equal",
+      "expected_form": "x = 5"
+    }
+  ]
+}

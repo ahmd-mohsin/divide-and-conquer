@@ -12,7 +12,7 @@ from expansion_schemas import CoTChain, RLState, RLAction
 from expansion_config import ExpansionConfig
 from cot_generator import CoTGenerator
 from reward_model import RewardModel
-from schemas import SubProblem  # From division module
+from expansion_schemas import SubProblem  # From division module
 
 
 class CoTExpansionEnv(gym.Env):

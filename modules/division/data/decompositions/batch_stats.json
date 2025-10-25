@@ -1,0 +1,23 @@
+{
+  "total_attempted": 150,
+  "total_successful": 150,
+  "total_failed": 0,
+  "by_model": {
+    "llama3.1:latest": {
+      "attempted": 50,
+      "successful": 50,
+      "failed": 0
+    },
+    "qwen2.5:7b": {
+      "attempted": 50,
+      "successful": 50,
+      "failed": 0
+    },
+    "deepseek-r1:7b": {
+      "attempted": 50,
+      "successful": 50,
+      "failed": 0
+    }
+  },
+  "failures": []
+}

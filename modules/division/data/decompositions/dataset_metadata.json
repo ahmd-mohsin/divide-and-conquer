@@ -1,0 +1,15 @@
+{
+  "created_at": "2025-10-24T18:00:46.921028",
+  "version": "1.0",
+  "total_problems": 0,
+  "total_decompositions": 150,
+  "models_used": [
+    "llama3.1:latest",
+    "qwen2.5:7b",
+    "deepseek-r1:7b"
+  ],
+  "categories": [
+    "algebra__linear_1d"
+  ],
+  "statistics": {}
+}

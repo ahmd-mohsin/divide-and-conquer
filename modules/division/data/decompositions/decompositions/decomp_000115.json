@@ -1,0 +1,47 @@
+{
+  "problem": "-42*r + 27*c = -1167 and 130*r + 4*c = 372 for r",
+  "depth_limit": 3,
+  "branching_limit": 3,
+  "nodes": [
+    {
+      "id": "1",
+      "parent_id": null,
+      "goal": "Solve the system of equations for variable r.",
+      "plan": "Use substitution or elimination method to solve for one variable first.",
+      "depends_on": [],
+      "hint": null,
+      "suggested_check": "algebra_equiv",
+      "expected_form": "r = [value]"
+    },
+    {
+      "id": "2",
+      "parent_id": "1",
+      "goal": "Isolate c in the second equation.",
+      "plan": "Rearrange 130*r +4*c=372 to express c in terms of r.",
+      "depends_on": [],
+      "hint": null,
+      "suggested_check": "algebra_equiv",
+      "expected_form": "c = [expression] in terms of r"
+    },
+    {
+      "id": "3",
+      "parent_id": "1",
+      "goal": "Substitute expression for c into first equation.",
+      "plan": "Replace c in -42*r +27*c=-1167 with the expression obtained from solving 130*r +4*c=372.",
+      "depends_on": [],
+      "hint": null,
+      "suggested_check": "algebra_equiv",
+      "expected_form": "-42*r +27*[expression] = -1167"
+    },
+    {
+      "id": "4",
+      "parent_id": "3",
+      "goal": "Solve for r after substitution.",
+      "plan": "Simplify the equation obtained from substitution and solve algebraically for r.",
+      "depends_on": [],
+      "hint": null,
+      "suggested_check": "algebra_equiv",
+      "expected_form": "r = [value]"
+    }
+  ]
+}

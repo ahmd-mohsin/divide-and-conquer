@@ -1,0 +1,47 @@
+{
+  "problem": "-42*r + 27*c = -1167 and 130*r + 4*c = 372 for r.",
+  "depth_limit": 3,
+  "branching_limit": 3,
+  "nodes": [
+    {
+      "id": "1",
+      "parent_id": null,
+      "goal": "Solve the system of equations for variable r.",
+      "plan": "Use substitution or elimination method to solve the system of two equations with two variables.",
+      "depends_on": [],
+      "hint": null,
+      "suggested_check": "algebra_equiv",
+      "expected_form": "r = [value]"
+    },
+    {
+      "id": "2",
+      "parent_id": "1",
+      "goal": "Isolate c in one equation.",
+      "plan": "Choose either -42*r + 27*c = -1167 or 130*r + 4*c = 372 and solve for c in terms of r.",
+      "depends_on": [],
+      "hint": null,
+      "suggested_check": "algebra_equiv",
+      "expected_form": "c = [expression in terms of r]"
+    },
+    {
+      "id": "3",
+      "parent_id": "1",
+      "goal": "Substitute expression into the other equation to solve for r.",
+      "plan": "Take the expression for c from one equation and substitute it into the second equation, then solve for r.",
+      "depends_on": [],
+      "hint": null,
+      "suggested_check": "algebra_equiv",
+      "expected_form": "r = [value]"
+    },
+    {
+      "id": "4",
+      "parent_id": "2",
+      "goal": "Simplify the substituted equation to find c's value.",
+      "plan": "Once r is found, substitute back into the expression for c obtained earlier.",
+      "depends_on": [],
+      "hint": null,
+      "suggested_check": "algebra_equiv",
+      "expected_form": "c = [value]"
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "problem": "Solve 3*x + 7 = 22 for x.",
+  "depth_limit": 3,
+  "branching_limit": 3,
+  "nodes": [
+    {
+      "id": "1",
+      "parent_id": null,
+      "goal": "Isolate variable x on left side",
+      "plan": "Subtract 7 from both sides of the equation, then divide by 3.",
+      "depends_on": [],
+      "hint": null,
+      "suggested_check": "numeric_equal",
+      "expected_form": "x = [number]"
+    }
+  ]
+}

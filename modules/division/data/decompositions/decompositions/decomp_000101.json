@@ -1,0 +1,27 @@
+{
+  "problem": "Solve 3*x + 7 = 22 for x.",
+  "depth_limit": 3,
+  "branching_limit": 3,
+  "nodes": [
+    {
+      "id": "1",
+      "parent_id": null,
+      "goal": "Isolate the term with x on one side of the equation",
+      "plan": "Subtract 7 from both sides to move constants away.",
+      "depends_on": [],
+      "hint": null,
+      "suggested_check": "algebra_equiv",
+      "expected_form": "3*x = 15"
+    },
+    {
+      "id": "2",
+      "parent_id": "1",
+      "goal": "Simplify the equation further by removing common factors from both sides",
+      "plan": "Divide both sides by 3 to solve for x.",
+      "depends_on": [],
+      "hint": null,
+      "suggested_check": "algebra_equiv",
+      "expected_form": "x = 5"
+    }
+  ]
+}

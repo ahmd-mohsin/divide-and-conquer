@@ -1,0 +1,47 @@
+{
+  "problem": "-42*r + 27*c = -1167 and 130*r + 4*c = 372 for r",
+  "depth_limit": 3,
+  "branching_limit": 3,
+  "nodes": [
+    {
+      "id": "1",
+      "parent_id": null,
+      "goal": "Solve the system of equations for variable r.",
+      "plan": "Use elimination method to eliminate one variable by making their coefficients equal in both equations.",
+      "depends_on": [],
+      "hint": null,
+      "suggested_check": "numeric_equal",
+      "expected_form": "r = [number]"
+    },
+    {
+      "id": "2",
+      "parent_id": "1",
+      "goal": "Isolate c in the second equation.",
+      "plan": "Solve for c using algebraic manipulation to express c in terms of r.",
+      "depends_on": [],
+      "hint": null,
+      "suggested_check": "algebra_equiv",
+      "expected_form": "c = [expression]"
+    },
+    {
+      "id": "3",
+      "parent_id": "1",
+      "goal": "Substitute the expression for c into the first equation.",
+      "plan": "Replace c in the first equation with the expression found from solving the second equation, then solve for r.",
+      "depends_on": [],
+      "hint": null,
+      "suggested_check": "algebra_equiv",
+      "expected_form": "r = [number]"
+    },
+    {
+      "id": "4",
+      "parent_id": "3",
+      "goal": "Simplify and solve for r after substitution.",
+      "plan": "Carry out the algebraic operations to isolate r in the equation obtained from substitution.",
+      "depends_on": [],
+      "hint": null,
+      "suggested_check": "numeric_equal",
+      "expected_form": "r = [number]"
+    }
+  ]
+}

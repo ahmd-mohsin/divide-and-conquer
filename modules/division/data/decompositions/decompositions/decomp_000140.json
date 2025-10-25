@@ -1,0 +1,41 @@
+{
+  "problem": "-42*r + 27*c = -1167 and 130*r + 4*c = 372 for r.",
+  "depth_limit": 3,
+  "branching_limit": 3,
+  "nodes": [
+    {
+      "id": "1",
+      "parent_id": null,
+      "goal": "Solve the system of equations for variable r.",
+      "plan": "Use substitution or elimination method to solve the two equations simultaneously.",
+      "depends_on": [],
+      "hint": null,
+      "suggested_check": "algebra_equiv",
+      "expected_form": "r = [value]"
+    },
+    {
+      "id": "2",
+      "parent_id": "1",
+      "goal": "Isolate c in one of the equations.",
+      "plan": "Choose either equation and rearrange to express c in terms of r.",
+      "depends_on": [
+        "1"
+      ],
+      "hint": null,
+      "suggested_check": "algebra_equiv",
+      "expected_form": "c = [expression] in terms of r"
+    },
+    {
+      "id": "3",
+      "parent_id": "2",
+      "goal": "Substitute the expression for c into the other equation and solve for r.",
+      "plan": "Replace c in the second equation with the expression found from the first equation.",
+      "depends_on": [
+        "2"
+      ],
+      "hint": null,
+      "suggested_check": "algebra_equiv",
+      "expected_form": "r = [value]"
+    }
+  ]
+}

@@ -1,0 +1,2402 @@
+[
+  {
+    "id": "decomp_000000",
+    "problem": "Solve -42*r + 27*c = -1167 and 130*r + 4*c = 372 for r.",
+    "answer": "4",
+    "model": "llama3.1:latest",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000000.json",
+    "num_subproblems": 5,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:00:51.967561",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000001",
+    "problem": "Solve 3*x + 7 = 22 for x.",
+    "answer": "5",
+    "model": "llama3.1:latest",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000001.json",
+    "num_subproblems": 2,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:00:53.892534",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000002",
+    "problem": "What is the value of y in 2*y - 5 = 11?",
+    "answer": "8",
+    "model": "llama3.1:latest",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000002.json",
+    "num_subproblems": 2,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:00:55.848720",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000003",
+    "problem": "Solve -5*a + 3 = -17 for a.",
+    "answer": "4",
+    "model": "llama3.1:latest",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000003.json",
+    "num_subproblems": 3,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:00:58.125911",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000004",
+    "problem": "Find x when 4*x + 6 = 2*x + 14.",
+    "answer": "4",
+    "model": "llama3.1:latest",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000004.json",
+    "num_subproblems": 2,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:01:00.149922",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000005",
+    "problem": "Solve -42*r + 27*c = -1167 and 130*r + 4*c = 372 for r.",
+    "answer": "4",
+    "model": "llama3.1:latest",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000005.json",
+    "num_subproblems": 5,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:01:03.342141",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000006",
+    "problem": "Solve 3*x + 7 = 22 for x.",
+    "answer": "5",
+    "model": "llama3.1:latest",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000006.json",
+    "num_subproblems": 3,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:01:05.674036",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000007",
+    "problem": "What is the value of y in 2*y - 5 = 11?",
+    "answer": "8",
+    "model": "llama3.1:latest",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000007.json",
+    "num_subproblems": 3,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:01:07.953167",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000008",
+    "problem": "Solve -5*a + 3 = -17 for a.",
+    "answer": "4",
+    "model": "llama3.1:latest",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000008.json",
+    "num_subproblems": 3,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:01:10.323750",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000009",
+    "problem": "Find x when 4*x + 6 = 2*x + 14.",
+    "answer": "4",
+    "model": "llama3.1:latest",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000009.json",
+    "num_subproblems": 3,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:01:12.738932",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000010",
+    "problem": "Solve -42*r + 27*c = -1167 and 130*r + 4*c = 372 for r.",
+    "answer": "4",
+    "model": "llama3.1:latest",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000010.json",
+    "num_subproblems": 4,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:01:15.545246",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000011",
+    "problem": "Solve 3*x + 7 = 22 for x.",
+    "answer": "5",
+    "model": "llama3.1:latest",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000011.json",
+    "num_subproblems": 2,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:01:17.568624",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000012",
+    "problem": "What is the value of y in 2*y - 5 = 11?",
+    "answer": "8",
+    "model": "llama3.1:latest",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000012.json",
+    "num_subproblems": 2,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:01:19.539058",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000013",
+    "problem": "Solve -5*a + 3 = -17 for a.",
+    "answer": "4",
+    "model": "llama3.1:latest",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000013.json",
+    "num_subproblems": 3,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:01:22.025986",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000014",
+    "problem": "Find x when 4*x + 6 = 2*x + 14.",
+    "answer": "4",
+    "model": "llama3.1:latest",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000014.json",
+    "num_subproblems": 3,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:01:24.461437",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000015",
+    "problem": "Solve -42*r + 27*c = -1167 and 130*r + 4*c = 372 for r.",
+    "answer": "4",
+    "model": "llama3.1:latest",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000015.json",
+    "num_subproblems": 4,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:01:27.102668",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000016",
+    "problem": "Solve 3*x + 7 = 22 for x.",
+    "answer": "5",
+    "model": "llama3.1:latest",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000016.json",
+    "num_subproblems": 3,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:01:29.410555",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000017",
+    "problem": "What is the value of y in 2*y - 5 = 11?",
+    "answer": "8",
+    "model": "llama3.1:latest",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000017.json",
+    "num_subproblems": 3,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:01:31.829593",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000018",
+    "problem": "Solve -5*a + 3 = -17 for a.",
+    "answer": "4",
+    "model": "llama3.1:latest",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000018.json",
+    "num_subproblems": 3,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:01:34.325778",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000019",
+    "problem": "Find x when 4*x + 6 = 2*x + 14.",
+    "answer": "4",
+    "model": "llama3.1:latest",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000019.json",
+    "num_subproblems": 3,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:01:36.708191",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000020",
+    "problem": "Solve -42*r + 27*c = -1167 and 130*r + 4*c = 372 for r.",
+    "answer": "4",
+    "model": "llama3.1:latest",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000020.json",
+    "num_subproblems": 4,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:01:39.363858",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000021",
+    "problem": "Solve 3*x + 7 = 22 for x.",
+    "answer": "5",
+    "model": "llama3.1:latest",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000021.json",
+    "num_subproblems": 2,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:01:41.472165",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000022",
+    "problem": "What is the value of y in 2*y - 5 = 11?",
+    "answer": "8",
+    "model": "llama3.1:latest",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000022.json",
+    "num_subproblems": 3,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:01:43.960522",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000023",
+    "problem": "Solve -5*a + 3 = -17 for a.",
+    "answer": "4",
+    "model": "llama3.1:latest",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000023.json",
+    "num_subproblems": 2,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:01:45.883513",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000024",
+    "problem": "Find x when 4*x + 6 = 2*x + 14.",
+    "answer": "4",
+    "model": "llama3.1:latest",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000024.json",
+    "num_subproblems": 3,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:01:48.285901",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000025",
+    "problem": "Solve -42*r + 27*c = -1167 and 130*r + 4*c = 372 for r.",
+    "answer": "4",
+    "model": "llama3.1:latest",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000025.json",
+    "num_subproblems": 4,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:01:51.100888",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000026",
+    "problem": "Solve 3*x + 7 = 22 for x.",
+    "answer": "5",
+    "model": "llama3.1:latest",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000026.json",
+    "num_subproblems": 2,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:01:53.092005",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000027",
+    "problem": "What is the value of y in 2*y - 5 = 11?",
+    "answer": "8",
+    "model": "llama3.1:latest",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000027.json",
+    "num_subproblems": 3,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:01:55.501557",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000028",
+    "problem": "Solve -5*a + 3 = -17 for a.",
+    "answer": "4",
+    "model": "llama3.1:latest",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000028.json",
+    "num_subproblems": 3,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:01:57.666524",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000029",
+    "problem": "Find x when 4*x + 6 = 2*x + 14.",
+    "answer": "4",
+    "model": "llama3.1:latest",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000029.json",
+    "num_subproblems": 3,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:02:00.097708",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000030",
+    "problem": "Solve -42*r + 27*c = -1167 and 130*r + 4*c = 372 for r.",
+    "answer": "4",
+    "model": "llama3.1:latest",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000030.json",
+    "num_subproblems": 4,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:02:02.964108",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000031",
+    "problem": "Solve 3*x + 7 = 22 for x.",
+    "answer": "5",
+    "model": "llama3.1:latest",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000031.json",
+    "num_subproblems": 3,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:02:05.451697",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000032",
+    "problem": "What is the value of y in 2*y - 5 = 11?",
+    "answer": "8",
+    "model": "llama3.1:latest",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000032.json",
+    "num_subproblems": 3,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:02:07.758844",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000033",
+    "problem": "Solve -5*a + 3 = -17 for a.",
+    "answer": "4",
+    "model": "llama3.1:latest",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000033.json",
+    "num_subproblems": 4,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:02:10.380081",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000034",
+    "problem": "Find x when 4*x + 6 = 2*x + 14.",
+    "answer": "4",
+    "model": "llama3.1:latest",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000034.json",
+    "num_subproblems": 3,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:02:12.783152",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000035",
+    "problem": "Solve -42*r + 27*c = -1167 and 130*r + 4*c = 372 for r.",
+    "answer": "4",
+    "model": "llama3.1:latest",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000035.json",
+    "num_subproblems": 5,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:02:15.804694",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000036",
+    "problem": "Solve 3*x + 7 = 22 for x.",
+    "answer": "5",
+    "model": "llama3.1:latest",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000036.json",
+    "num_subproblems": 2,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:02:17.752689",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000037",
+    "problem": "What is the value of y in 2*y - 5 = 11?",
+    "answer": "8",
+    "model": "llama3.1:latest",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000037.json",
+    "num_subproblems": 2,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:02:19.760275",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000038",
+    "problem": "Solve -5*a + 3 = -17 for a.",
+    "answer": "4",
+    "model": "llama3.1:latest",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000038.json",
+    "num_subproblems": 3,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:02:22.208465",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000039",
+    "problem": "Find x when 4*x + 6 = 2*x + 14.",
+    "answer": "4",
+    "model": "llama3.1:latest",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000039.json",
+    "num_subproblems": 2,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:02:24.243873",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000040",
+    "problem": "Solve -42*r + 27*c = -1167 and 130*r + 4*c = 372 for r.",
+    "answer": "4",
+    "model": "llama3.1:latest",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000040.json",
+    "num_subproblems": 4,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:02:27.228948",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000041",
+    "problem": "Solve 3*x + 7 = 22 for x.",
+    "answer": "5",
+    "model": "llama3.1:latest",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000041.json",
+    "num_subproblems": 3,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:02:29.596913",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000042",
+    "problem": "What is the value of y in 2*y - 5 = 11?",
+    "answer": "8",
+    "model": "llama3.1:latest",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000042.json",
+    "num_subproblems": 2,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:02:31.625966",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000043",
+    "problem": "Solve -5*a + 3 = -17 for a.",
+    "answer": "4",
+    "model": "llama3.1:latest",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000043.json",
+    "num_subproblems": 3,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:02:33.945248",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000044",
+    "problem": "Find x when 4*x + 6 = 2*x + 14.",
+    "answer": "4",
+    "model": "llama3.1:latest",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000044.json",
+    "num_subproblems": 3,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:02:36.286445",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000045",
+    "problem": "Solve -42*r + 27*c = -1167 and 130*r + 4*c = 372 for r.",
+    "answer": "4",
+    "model": "llama3.1:latest",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000045.json",
+    "num_subproblems": 4,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:02:39.009851",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000046",
+    "problem": "Solve 3*x + 7 = 22 for x.",
+    "answer": "5",
+    "model": "llama3.1:latest",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000046.json",
+    "num_subproblems": 2,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:02:41.040816",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000047",
+    "problem": "What is the value of y in 2*y - 5 = 11?",
+    "answer": "8",
+    "model": "llama3.1:latest",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000047.json",
+    "num_subproblems": 2,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:02:42.993846",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000048",
+    "problem": "Solve -5*a + 3 = -17 for a.",
+    "answer": "4",
+    "model": "llama3.1:latest",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000048.json",
+    "num_subproblems": 3,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:02:45.507570",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000049",
+    "problem": "Find x when 4*x + 6 = 2*x + 14.",
+    "answer": "4",
+    "model": "llama3.1:latest",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000049.json",
+    "num_subproblems": 4,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:02:48.406749",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000050",
+    "problem": "Solve -42*r + 27*c = -1167 and 130*r + 4*c = 372 for r.",
+    "answer": "4",
+    "model": "qwen2.5:7b",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000050.json",
+    "num_subproblems": 1,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:02:52.134343",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000051",
+    "problem": "Solve 3*x + 7 = 22 for x.",
+    "answer": "5",
+    "model": "qwen2.5:7b",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000051.json",
+    "num_subproblems": 1,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:02:53.822048",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000052",
+    "problem": "What is the value of y in 2*y - 5 = 11?",
+    "answer": "8",
+    "model": "qwen2.5:7b",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000052.json",
+    "num_subproblems": 1,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:02:55.496973",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000053",
+    "problem": "Solve -5*a + 3 = -17 for a.",
+    "answer": "4",
+    "model": "qwen2.5:7b",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000053.json",
+    "num_subproblems": 1,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:02:57.161624",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000054",
+    "problem": "Find x when 4*x + 6 = 2*x + 14.",
+    "answer": "4",
+    "model": "qwen2.5:7b",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000054.json",
+    "num_subproblems": 3,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:02:59.536793",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000055",
+    "problem": "Solve -42*r + 27*c = -1167 and 130*r + 4*c = 372 for r.",
+    "answer": "4",
+    "model": "qwen2.5:7b",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000055.json",
+    "num_subproblems": 1,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:03:01.381813",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000056",
+    "problem": "Solve 3*x + 7 = 22 for x.",
+    "answer": "5",
+    "model": "qwen2.5:7b",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000056.json",
+    "num_subproblems": 1,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:03:03.044564",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000057",
+    "problem": "What is the value of y in 2*y - 5 = 11?",
+    "answer": "8",
+    "model": "qwen2.5:7b",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000057.json",
+    "num_subproblems": 1,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:03:04.717111",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000058",
+    "problem": "Solve -5*a + 3 = -17 for a.",
+    "answer": "4",
+    "model": "qwen2.5:7b",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000058.json",
+    "num_subproblems": 1,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:03:06.375083",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000059",
+    "problem": "Find x when 4*x + 6 = 2*x + 14.",
+    "answer": "4",
+    "model": "qwen2.5:7b",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000059.json",
+    "num_subproblems": 1,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:03:08.061028",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000060",
+    "problem": "Solve -42*r + 27*c = -1167 and 130*r + 4*c = 372 for r.",
+    "answer": "4",
+    "model": "qwen2.5:7b",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000060.json",
+    "num_subproblems": 1,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:03:09.914722",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000061",
+    "problem": "Solve 3*x + 7 = 22 for x.",
+    "answer": "5",
+    "model": "qwen2.5:7b",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000061.json",
+    "num_subproblems": 1,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:03:11.584831",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000062",
+    "problem": "What is the value of y in 2*y - 5 = 11?",
+    "answer": "8",
+    "model": "qwen2.5:7b",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000062.json",
+    "num_subproblems": 1,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:03:13.270881",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000063",
+    "problem": "Solve -5*a + 3 = -17 for a.",
+    "answer": "4",
+    "model": "qwen2.5:7b",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000063.json",
+    "num_subproblems": 1,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:03:14.951867",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000064",
+    "problem": "Find x when 4*x + 6 = 2*x + 14.",
+    "answer": "4",
+    "model": "qwen2.5:7b",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000064.json",
+    "num_subproblems": 1,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:03:16.659303",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000065",
+    "problem": "Solve -42*r + 27*c = -1167 and 130*r + 4*c = 372 for r.",
+    "answer": "4",
+    "model": "qwen2.5:7b",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000065.json",
+    "num_subproblems": 1,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:03:18.488456",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000066",
+    "problem": "Solve 3*x + 7 = 22 for x.",
+    "answer": "5",
+    "model": "qwen2.5:7b",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000066.json",
+    "num_subproblems": 1,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:03:20.145000",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000067",
+    "problem": "What is the value of y in 2*y - 5 = 11?",
+    "answer": "8",
+    "model": "qwen2.5:7b",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000067.json",
+    "num_subproblems": 1,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:03:21.813082",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000068",
+    "problem": "Solve -5*a + 3 = -17 for a.",
+    "answer": "4",
+    "model": "qwen2.5:7b",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000068.json",
+    "num_subproblems": 1,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:03:23.496952",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000069",
+    "problem": "Find x when 4*x + 6 = 2*x + 14.",
+    "answer": "4",
+    "model": "qwen2.5:7b",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000069.json",
+    "num_subproblems": 3,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:03:25.841938",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000070",
+    "problem": "Solve -42*r + 27*c = -1167 and 130*r + 4*c = 372 for r.",
+    "answer": "4",
+    "model": "qwen2.5:7b",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000070.json",
+    "num_subproblems": 1,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:03:27.687509",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000071",
+    "problem": "Solve 3*x + 7 = 22 for x.",
+    "answer": "5",
+    "model": "qwen2.5:7b",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000071.json",
+    "num_subproblems": 1,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:03:29.350790",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000072",
+    "problem": "What is the value of y in 2*y - 5 = 11?",
+    "answer": "8",
+    "model": "qwen2.5:7b",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000072.json",
+    "num_subproblems": 1,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:03:31.033692",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000073",
+    "problem": "Solve -5*a + 3 = -17 for a.",
+    "answer": "4",
+    "model": "qwen2.5:7b",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000073.json",
+    "num_subproblems": 1,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:03:32.711798",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000074",
+    "problem": "Find x when 4*x + 6 = 2*x + 14.",
+    "answer": "4",
+    "model": "qwen2.5:7b",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000074.json",
+    "num_subproblems": 1,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:03:34.408955",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000075",
+    "problem": "Solve -42*r + 27*c = -1167 and 130*r + 4*c = 372 for r.",
+    "answer": "4",
+    "model": "qwen2.5:7b",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000075.json",
+    "num_subproblems": 1,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:03:36.234773",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000076",
+    "problem": "Solve 3*x + 7 = 22 for x.",
+    "answer": "5",
+    "model": "qwen2.5:7b",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000076.json",
+    "num_subproblems": 1,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:03:37.891475",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000077",
+    "problem": "What is the value of y in 2*y - 5 = 11?",
+    "answer": "8",
+    "model": "qwen2.5:7b",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000077.json",
+    "num_subproblems": 1,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:03:39.557496",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000078",
+    "problem": "Solve -5*a + 3 = -17 for a.",
+    "answer": "4",
+    "model": "qwen2.5:7b",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000078.json",
+    "num_subproblems": 1,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:03:41.224886",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000079",
+    "problem": "Find x when 4*x + 6 = 2*x + 14.",
+    "answer": "4",
+    "model": "qwen2.5:7b",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000079.json",
+    "num_subproblems": 1,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:03:42.922939",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000080",
+    "problem": "Solve -42*r + 27*c = -1167 and 130*r + 4*c = 372 for r.",
+    "answer": "4",
+    "model": "qwen2.5:7b",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000080.json",
+    "num_subproblems": 1,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:03:44.760395",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000081",
+    "problem": "Solve 3*x + 7 = 22 for x.",
+    "answer": "5",
+    "model": "qwen2.5:7b",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000081.json",
+    "num_subproblems": 1,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:03:46.463282",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000082",
+    "problem": "What is the value of y in 2*y - 5 = 11?",
+    "answer": "8",
+    "model": "qwen2.5:7b",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000082.json",
+    "num_subproblems": 1,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:03:48.143342",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000083",
+    "problem": "Solve -5*a + 3 = -17 for a.",
+    "answer": "4",
+    "model": "qwen2.5:7b",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000083.json",
+    "num_subproblems": 1,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:03:49.785830",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000084",
+    "problem": "Find x when 4*x + 6 = 2*x + 14.",
+    "answer": "4",
+    "model": "qwen2.5:7b",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000084.json",
+    "num_subproblems": 3,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:03:52.160794",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000085",
+    "problem": "Solve -42*r + 27*c = -1167 and 130*r + 4*c = 372 for r.",
+    "answer": "4",
+    "model": "qwen2.5:7b",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000085.json",
+    "num_subproblems": 1,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:03:53.994939",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000086",
+    "problem": "Solve 3*x + 7 = 22 for x.",
+    "answer": "5",
+    "model": "qwen2.5:7b",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000086.json",
+    "num_subproblems": 1,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:03:55.637766",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000087",
+    "problem": "What is the value of y in 2*y - 5 = 11?",
+    "answer": "8",
+    "model": "qwen2.5:7b",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000087.json",
+    "num_subproblems": 1,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:03:57.321999",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000088",
+    "problem": "Solve -5*a + 3 = -17 for a.",
+    "answer": "4",
+    "model": "qwen2.5:7b",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000088.json",
+    "num_subproblems": 1,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:03:58.981912",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000089",
+    "problem": "Find x when 4*x + 6 = 2*x + 14.",
+    "answer": "4",
+    "model": "qwen2.5:7b",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000089.json",
+    "num_subproblems": 1,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:04:00.660496",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000090",
+    "problem": "Solve -42*r + 27*c = -1167 and 130*r + 4*c = 372 for r.",
+    "answer": "4",
+    "model": "qwen2.5:7b",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000090.json",
+    "num_subproblems": 1,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:04:02.506280",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000091",
+    "problem": "Solve 3*x + 7 = 22 for x.",
+    "answer": "5",
+    "model": "qwen2.5:7b",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000091.json",
+    "num_subproblems": 1,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:04:04.152458",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000092",
+    "problem": "What is the value of y in 2*y - 5 = 11?",
+    "answer": "8",
+    "model": "qwen2.5:7b",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000092.json",
+    "num_subproblems": 1,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:04:05.824549",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000093",
+    "problem": "Solve -5*a + 3 = -17 for a.",
+    "answer": "4",
+    "model": "qwen2.5:7b",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000093.json",
+    "num_subproblems": 1,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:04:07.492547",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000094",
+    "problem": "Find x when 4*x + 6 = 2*x + 14.",
+    "answer": "4",
+    "model": "qwen2.5:7b",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000094.json",
+    "num_subproblems": 1,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:04:09.187707",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000095",
+    "problem": "Solve -42*r + 27*c = -1167 and 130*r + 4*c = 372 for r.",
+    "answer": "4",
+    "model": "qwen2.5:7b",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000095.json",
+    "num_subproblems": 1,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:04:11.032466",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000096",
+    "problem": "Solve 3*x + 7 = 22 for x.",
+    "answer": "5",
+    "model": "qwen2.5:7b",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000096.json",
+    "num_subproblems": 1,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:04:12.684639",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000097",
+    "problem": "What is the value of y in 2*y - 5 = 11?",
+    "answer": "8",
+    "model": "qwen2.5:7b",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000097.json",
+    "num_subproblems": 1,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:04:14.352065",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000098",
+    "problem": "Solve -5*a + 3 = -17 for a.",
+    "answer": "4",
+    "model": "qwen2.5:7b",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000098.json",
+    "num_subproblems": 1,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:04:16.026378",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000099",
+    "problem": "Find x when 4*x + 6 = 2*x + 14.",
+    "answer": "4",
+    "model": "qwen2.5:7b",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000099.json",
+    "num_subproblems": 1,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:04:17.717512",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000100",
+    "problem": "Solve -42*r + 27*c = -1167 and 130*r + 4*c = 372 for r.",
+    "answer": "4",
+    "model": "deepseek-r1:7b",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000100.json",
+    "num_subproblems": 4,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:04:21.957532",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000101",
+    "problem": "Solve 3*x + 7 = 22 for x.",
+    "answer": "5",
+    "model": "deepseek-r1:7b",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000101.json",
+    "num_subproblems": 2,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:04:24.223615",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000102",
+    "problem": "What is the value of y in 2*y - 5 = 11?",
+    "answer": "8",
+    "model": "deepseek-r1:7b",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000102.json",
+    "num_subproblems": 2,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:04:26.390501",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000103",
+    "problem": "Solve -5*a + 3 = -17 for a.",
+    "answer": "4",
+    "model": "deepseek-r1:7b",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000103.json",
+    "num_subproblems": 3,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:04:28.939064",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000104",
+    "problem": "Find x when 4*x + 6 = 2*x + 14.",
+    "answer": "4",
+    "model": "deepseek-r1:7b",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000104.json",
+    "num_subproblems": 3,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:04:31.525776",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000105",
+    "problem": "Solve -42*r + 27*c = -1167 and 130*r + 4*c = 372 for r.",
+    "answer": "4",
+    "model": "deepseek-r1:7b",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000105.json",
+    "num_subproblems": 4,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:04:34.296885",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000106",
+    "problem": "Solve 3*x + 7 = 22 for x.",
+    "answer": "5",
+    "model": "deepseek-r1:7b",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000106.json",
+    "num_subproblems": 3,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:04:36.710542",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000107",
+    "problem": "What is the value of y in 2*y - 5 = 11?",
+    "answer": "8",
+    "model": "deepseek-r1:7b",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000107.json",
+    "num_subproblems": 2,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:04:38.897361",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000108",
+    "problem": "Solve -5*a + 3 = -17 for a.",
+    "answer": "4",
+    "model": "deepseek-r1:7b",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000108.json",
+    "num_subproblems": 2,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:04:41.151517",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000109",
+    "problem": "Find x when 4*x + 6 = 2*x + 14.",
+    "answer": "4",
+    "model": "deepseek-r1:7b",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000109.json",
+    "num_subproblems": 3,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:04:43.737912",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000110",
+    "problem": "Solve -42*r + 27*c = -1167 and 130*r + 4*c = 372 for r.",
+    "answer": "4",
+    "model": "deepseek-r1:7b",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000110.json",
+    "num_subproblems": 4,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:04:46.622899",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000111",
+    "problem": "Solve 3*x + 7 = 22 for x.",
+    "answer": "5",
+    "model": "deepseek-r1:7b",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000111.json",
+    "num_subproblems": 2,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:04:48.931544",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000112",
+    "problem": "What is the value of y in 2*y - 5 = 11?",
+    "answer": "8",
+    "model": "deepseek-r1:7b",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000112.json",
+    "num_subproblems": 3,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:04:51.493380",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000113",
+    "problem": "Solve -5*a + 3 = -17 for a.",
+    "answer": "4",
+    "model": "deepseek-r1:7b",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000113.json",
+    "num_subproblems": 2,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:04:53.775839",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000114",
+    "problem": "Find x when 4*x + 6 = 2*x + 14.",
+    "answer": "4",
+    "model": "deepseek-r1:7b",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000114.json",
+    "num_subproblems": 3,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:04:56.351196",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000115",
+    "problem": "Solve -42*r + 27*c = -1167 and 130*r + 4*c = 372 for r.",
+    "answer": "4",
+    "model": "deepseek-r1:7b",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000115.json",
+    "num_subproblems": 4,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:04:59.260911",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000116",
+    "problem": "Solve 3*x + 7 = 22 for x.",
+    "answer": "5",
+    "model": "deepseek-r1:7b",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000116.json",
+    "num_subproblems": 3,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:05:01.758431",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000117",
+    "problem": "What is the value of y in 2*y - 5 = 11?",
+    "answer": "8",
+    "model": "deepseek-r1:7b",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000117.json",
+    "num_subproblems": 2,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:05:03.975395",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000118",
+    "problem": "Solve -5*a + 3 = -17 for a.",
+    "answer": "4",
+    "model": "deepseek-r1:7b",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000118.json",
+    "num_subproblems": 3,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:05:06.514045",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000119",
+    "problem": "Find x when 4*x + 6 = 2*x + 14.",
+    "answer": "4",
+    "model": "deepseek-r1:7b",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000119.json",
+    "num_subproblems": 3,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:05:09.021545",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000120",
+    "problem": "Solve -42*r + 27*c = -1167 and 130*r + 4*c = 372 for r.",
+    "answer": "4",
+    "model": "deepseek-r1:7b",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000120.json",
+    "num_subproblems": 4,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:05:11.999057",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000121",
+    "problem": "Solve 3*x + 7 = 22 for x.",
+    "answer": "5",
+    "model": "deepseek-r1:7b",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000121.json",
+    "num_subproblems": 3,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:05:14.448843",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000122",
+    "problem": "What is the value of y in 2*y - 5 = 11?",
+    "answer": "8",
+    "model": "deepseek-r1:7b",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000122.json",
+    "num_subproblems": 2,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:05:16.639070",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000123",
+    "problem": "Solve -5*a + 3 = -17 for a.",
+    "answer": "4",
+    "model": "deepseek-r1:7b",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000123.json",
+    "num_subproblems": 2,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:05:18.923399",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000124",
+    "problem": "Find x when 4*x + 6 = 2*x + 14.",
+    "answer": "4",
+    "model": "deepseek-r1:7b",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000124.json",
+    "num_subproblems": 3,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:05:21.540925",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000125",
+    "problem": "Solve -42*r + 27*c = -1167 and 130*r + 4*c = 372 for r.",
+    "answer": "4",
+    "model": "deepseek-r1:7b",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000125.json",
+    "num_subproblems": 3,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:05:24.393137",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000126",
+    "problem": "Solve 3*x + 7 = 22 for x.",
+    "answer": "5",
+    "model": "deepseek-r1:7b",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000126.json",
+    "num_subproblems": 3,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:05:26.831111",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000127",
+    "problem": "What is the value of y in 2*y - 5 = 11?",
+    "answer": "8",
+    "model": "deepseek-r1:7b",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000127.json",
+    "num_subproblems": 3,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:05:29.283743",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000128",
+    "problem": "Solve -5*a + 3 = -17 for a.",
+    "answer": "4",
+    "model": "deepseek-r1:7b",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000128.json",
+    "num_subproblems": 2,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:05:31.330944",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000129",
+    "problem": "Find x when 4*x + 6 = 2*x + 14.",
+    "answer": "4",
+    "model": "deepseek-r1:7b",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000129.json",
+    "num_subproblems": 3,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:05:33.849219",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000130",
+    "problem": "Solve -42*r + 27*c = -1167 and 130*r + 4*c = 372 for r.",
+    "answer": "4",
+    "model": "deepseek-r1:7b",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000130.json",
+    "num_subproblems": 5,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:05:37.107013",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000131",
+    "problem": "Solve 3*x + 7 = 22 for x.",
+    "answer": "5",
+    "model": "deepseek-r1:7b",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000131.json",
+    "num_subproblems": 3,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:05:39.693154",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000132",
+    "problem": "What is the value of y in 2*y - 5 = 11?",
+    "answer": "8",
+    "model": "deepseek-r1:7b",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000132.json",
+    "num_subproblems": 2,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:05:41.914613",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000133",
+    "problem": "Solve -5*a + 3 = -17 for a.",
+    "answer": "4",
+    "model": "deepseek-r1:7b",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000133.json",
+    "num_subproblems": 1,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:05:43.870197",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000134",
+    "problem": "Find x when 4*x + 6 = 2*x + 14.",
+    "answer": "4",
+    "model": "deepseek-r1:7b",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000134.json",
+    "num_subproblems": 1,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:05:45.840274",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000135",
+    "problem": "Solve -42*r + 27*c = -1167 and 130*r + 4*c = 372 for r.",
+    "answer": "4",
+    "model": "deepseek-r1:7b",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000135.json",
+    "num_subproblems": 3,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:05:48.325672",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000136",
+    "problem": "Solve 3*x + 7 = 22 for x.",
+    "answer": "5",
+    "model": "deepseek-r1:7b",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000136.json",
+    "num_subproblems": 2,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:05:50.634614",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000137",
+    "problem": "What is the value of y in 2*y - 5 = 11?",
+    "answer": "8",
+    "model": "deepseek-r1:7b",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000137.json",
+    "num_subproblems": 3,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:05:52.990319",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000138",
+    "problem": "Solve -5*a + 3 = -17 for a.",
+    "answer": "4",
+    "model": "deepseek-r1:7b",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000138.json",
+    "num_subproblems": 3,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:05:55.632890",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000139",
+    "problem": "Find x when 4*x + 6 = 2*x + 14.",
+    "answer": "4",
+    "model": "deepseek-r1:7b",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000139.json",
+    "num_subproblems": 5,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:05:58.854729",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000140",
+    "problem": "Solve -42*r + 27*c = -1167 and 130*r + 4*c = 372 for r.",
+    "answer": "4",
+    "model": "deepseek-r1:7b",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000140.json",
+    "num_subproblems": 3,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:06:01.452234",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000141",
+    "problem": "Solve 3*x + 7 = 22 for x.",
+    "answer": "5",
+    "model": "deepseek-r1:7b",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000141.json",
+    "num_subproblems": 3,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:06:03.904980",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000142",
+    "problem": "What is the value of y in 2*y - 5 = 11?",
+    "answer": "8",
+    "model": "deepseek-r1:7b",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000142.json",
+    "num_subproblems": 4,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:06:06.562271",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000143",
+    "problem": "Solve -5*a + 3 = -17 for a.",
+    "answer": "4",
+    "model": "deepseek-r1:7b",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000143.json",
+    "num_subproblems": 2,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:06:08.788364",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000144",
+    "problem": "Find x when 4*x + 6 = 2*x + 14.",
+    "answer": "4",
+    "model": "deepseek-r1:7b",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000144.json",
+    "num_subproblems": 3,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:06:11.426013",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000145",
+    "problem": "Solve -42*r + 27*c = -1167 and 130*r + 4*c = 372 for r.",
+    "answer": "4",
+    "model": "deepseek-r1:7b",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000145.json",
+    "num_subproblems": 4,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:06:14.389534",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000146",
+    "problem": "Solve 3*x + 7 = 22 for x.",
+    "answer": "5",
+    "model": "deepseek-r1:7b",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000146.json",
+    "num_subproblems": 3,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:06:17.134080",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000147",
+    "problem": "What is the value of y in 2*y - 5 = 11?",
+    "answer": "8",
+    "model": "deepseek-r1:7b",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000147.json",
+    "num_subproblems": 2,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:06:19.322462",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000148",
+    "problem": "Solve -5*a + 3 = -17 for a.",
+    "answer": "4",
+    "model": "deepseek-r1:7b",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000148.json",
+    "num_subproblems": 2,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:06:21.391950",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  },
+  {
+    "id": "decomp_000149",
+    "problem": "Find x when 4*x + 6 = 2*x + 14.",
+    "answer": "4",
+    "model": "deepseek-r1:7b",
+    "category": "algebra__linear_1d",
+    "file": "decompositions/decomp_000149.json",
+    "num_subproblems": 4,
+    "depth": 3,
+    "branching": 3,
+    "created_at": "2025-10-24T18:06:24.302781",
+    "metadata": {
+      "depth": 3,
+      "branching": 3
+    }
+  }
+]

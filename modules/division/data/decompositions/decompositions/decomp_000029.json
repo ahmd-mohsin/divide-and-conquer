@@ -1,0 +1,41 @@
+{
+  "problem": "Find x when 4*x + 6 = 2*x + 14.",
+  "depth_limit": 3,
+  "branching_limit": 3,
+  "nodes": [
+    {
+      "id": "1",
+      "parent_id": null,
+      "goal": "Isolate the variable on one side of the equation",
+      "plan": "Subtract 2*x from both sides to get 2*x on one side",
+      "depends_on": [],
+      "hint": null,
+      "suggested_check": "algebra_equiv",
+      "expected_form": null
+    },
+    {
+      "id": "2",
+      "parent_id": "1",
+      "goal": "Get all x terms on the left side of the equation",
+      "plan": "Add 6 to both sides and then subtract 14 from both sides",
+      "depends_on": [
+        "1"
+      ],
+      "hint": null,
+      "suggested_check": "algebra_equiv",
+      "expected_form": null
+    },
+    {
+      "id": "3",
+      "parent_id": "2",
+      "goal": "Solve for x by isolating it on one side of the equation",
+      "plan": "Divide both sides by 6 to solve for x",
+      "depends_on": [
+        "2"
+      ],
+      "hint": null,
+      "suggested_check": "numeric_equal",
+      "expected_form": null
+    }
+  ]
+}

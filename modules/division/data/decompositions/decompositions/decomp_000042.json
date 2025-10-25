@@ -1,0 +1,29 @@
+{
+  "problem": "What is the value of y in 2*y - 5 = 11?",
+  "depth_limit": 3,
+  "branching_limit": 3,
+  "nodes": [
+    {
+      "id": "1",
+      "parent_id": null,
+      "goal": "Isolate variable y on left side",
+      "plan": "Add 5 to both sides of the equation",
+      "depends_on": [],
+      "hint": null,
+      "suggested_check": "algebra_equiv",
+      "expected_form": "2*y = [number]"
+    },
+    {
+      "id": "2",
+      "parent_id": "1",
+      "goal": "Solve for y",
+      "plan": "Divide both sides by 2",
+      "depends_on": [
+        "1"
+      ],
+      "hint": null,
+      "suggested_check": "numeric_equal",
+      "expected_form": "y = [number]"
+    }
+  ]
+}

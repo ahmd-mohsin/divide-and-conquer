@@ -1,0 +1,51 @@
+{
+  "problem": "Solve -5*a + 3 = -17 for a.",
+  "depth_limit": 3,
+  "branching_limit": 3,
+  "nodes": [
+    {
+      "id": "1",
+      "parent_id": null,
+      "goal": "Isolate constant term on right side",
+      "plan": "Add 5*a to both sides of the equation",
+      "depends_on": [],
+      "hint": null,
+      "suggested_check": "algebra_equiv",
+      "expected_form": null
+    },
+    {
+      "id": "2",
+      "parent_id": "1",
+      "goal": "Combine like terms on left side",
+      "plan": "-5*a + 3 + 5*a = -17 + 5*a",
+      "depends_on": [
+        "1"
+      ],
+      "hint": null,
+      "suggested_check": "algebra_equiv",
+      "expected_form": null
+    },
+    {
+      "id": "3",
+      "parent_id": "2",
+      "goal": "Isolate variable a on left side",
+      "plan": "-3 = -17 + 5*a",
+      "depends_on": [
+        "2"
+      ],
+      "hint": null,
+      "suggested_check": "algebra_equiv",
+      "expected_form": null
+    },
+    {
+      "id": "4",
+      "parent_id": "3",
+      "goal": "Solve for a",
+      "plan": "-3 + 17 = 5*a",
+      "depends_on": [],
+      "hint": null,
+      "suggested_check": "numeric_equal",
+      "expected_form": "a = [number]"
+    }
+  ]
+}

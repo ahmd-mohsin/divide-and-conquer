@@ -1,0 +1,37 @@
+{
+  "problem": "Solve 3*x + 7 = 22 for x.",
+  "depth_limit": 3,
+  "branching_limit": 3,
+  "nodes": [
+    {
+      "id": "1",
+      "parent_id": null,
+      "goal": "Isolate constant term on right side",
+      "plan": "Subtract 7 from both sides",
+      "depends_on": [],
+      "hint": null,
+      "suggested_check": "numeric_equal",
+      "expected_form": "22 - 7 = [number]"
+    },
+    {
+      "id": "2",
+      "parent_id": "1",
+      "goal": "Isolate variable term on left side",
+      "plan": "Divide both sides by 3",
+      "depends_on": [],
+      "hint": null,
+      "suggested_check": "numeric_equal",
+      "expected_form": "[number] = x"
+    },
+    {
+      "id": "3",
+      "parent_id": "2",
+      "goal": "Solve for x",
+      "plan": "Apply division to isolate x",
+      "depends_on": [],
+      "hint": null,
+      "suggested_check": "numeric_equal",
+      "expected_form": "x = [number]"
+    }
+  ]
+}

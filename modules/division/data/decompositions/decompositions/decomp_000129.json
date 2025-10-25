@@ -1,0 +1,37 @@
+{
+  "problem": "Find x when 4*x + 6 = 2*x + 14.",
+  "depth_limit": 3,
+  "branching_limit": 3,
+  "nodes": [
+    {
+      "id": "1",
+      "parent_id": null,
+      "goal": "Simplify the equation by moving all terms to one side",
+      "plan": "Subtract 2x and subtract 6 from both sides to isolate x terms on one side.",
+      "depends_on": [],
+      "hint": null,
+      "suggested_check": "algebra_equiv",
+      "expected_form": "0 = ... or similar"
+    },
+    {
+      "id": "2",
+      "parent_id": "1",
+      "goal": "Solve for x by dividing both sides by the coefficient of x",
+      "plan": "After simplifying, divide both sides by 4 to find the value of x.",
+      "depends_on": [],
+      "hint": null,
+      "suggested_check": "numeric_equal",
+      "expected_form": "x = [number]"
+    },
+    {
+      "id": "3",
+      "parent_id": null,
+      "goal": "Check if initial equation has a solution",
+      "plan": "Attempt to solve for x; if both sides reduce to the same value, confirm that there's exactly one solution.",
+      "depends_on": [],
+      "hint": null,
+      "suggested_check": "algebra_equiv",
+      "expected_form": "x = [number]"
+    }
+  ]
+}

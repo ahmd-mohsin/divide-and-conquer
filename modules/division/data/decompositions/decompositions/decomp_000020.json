@@ -1,0 +1,47 @@
+{
+  "problem": "Solve -42*r + 27*c = -1167 and 130*r + 4*c = 372 for r.",
+  "depth_limit": 3,
+  "branching_limit": 3,
+  "nodes": [
+    {
+      "id": "1",
+      "parent_id": null,
+      "goal": "Isolate variable c in the first equation",
+      "plan": "Subtract -27*c from both sides of the first equation",
+      "depends_on": [],
+      "hint": null,
+      "suggested_check": "algebra_equiv",
+      "expected_form": null
+    },
+    {
+      "id": "2",
+      "parent_id": "1",
+      "goal": "Isolate variable r in the second equation",
+      "plan": "Subtract 4*c from both sides of the second equation",
+      "depends_on": [],
+      "hint": null,
+      "suggested_check": "algebra_equiv",
+      "expected_form": null
+    },
+    {
+      "id": "3",
+      "parent_id": null,
+      "goal": "Eliminate c by multiplying the first equation by -1/27 and adding it to the second equation",
+      "plan": "Apply algebraic manipulation to eliminate variable c",
+      "depends_on": [],
+      "hint": null,
+      "suggested_check": "algebra_equiv",
+      "expected_form": null
+    },
+    {
+      "id": "4",
+      "parent_id": "3",
+      "goal": "Solve for r in the resulting equation",
+      "plan": "Isolate variable r on one side of the equation",
+      "depends_on": [],
+      "hint": null,
+      "suggested_check": "numeric_equal",
+      "expected_form": null
+    }
+  ]
+}
