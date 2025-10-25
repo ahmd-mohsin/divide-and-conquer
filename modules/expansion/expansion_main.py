@@ -1,8 +1,10 @@
 # expansion_main.py
 """Main entry point for Module 2: CoT Expansion with Hierarchical RL."""
-import sys
-import os
-sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'division'))
+import sys, os
+parent_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+if parent_dir not in sys.path:
+    sys.path.insert(0, parent_dir)
+
 
 from pathlib import Path
 import json

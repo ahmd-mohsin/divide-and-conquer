@@ -4,7 +4,7 @@ Batch decomposition of math problems to create training dataset.
 Processes DeepMind Math Dataset and stores decompositions.
 """
 from hcot_decomposer import quick_decompose
-from utils import save_decomposition, print_statistics
+from .utils import save_decomposition, print_statistics
 from schemas import Decomposition
 from pathlib import Path
 import json

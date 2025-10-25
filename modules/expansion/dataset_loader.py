@@ -1,16 +1,18 @@
 # dataset_loader.py
 """Load decompositions from Module 1 for expansion in Module 2."""
-import sys
-import os
-sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'division'))
+import sys, os
+parent_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+if parent_dir not in sys.path:
+    sys.path.insert(0, parent_dir)
 
+from division.schemas import SubProblem  
 import json
 from pathlib import Path
 from typing import List, Optional, Dict, Any
 import random
 
-from expansion_schemas import Decomposition, SubProblem
-from utils import load_decomposition
+from division.schemas import Decomposition, SubProblem
+from division.utils import load_decomposition
 
 
 class DecompositionLoader:
