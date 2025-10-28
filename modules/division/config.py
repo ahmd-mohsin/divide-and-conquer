@@ -1,5 +1,7 @@
 # config.py
 """Configuration management for HCOT system."""
+from __future__ import annotations
+
 import sys
 import os
 
@@ -7,9 +9,6 @@ import os
 current_dir = os.path.dirname(os.path.abspath(__file__))
 if current_dir not in sys.path:
     sys.path.insert(0, current_dir)
-    
-from __future__ import annotations
-import os
 from dataclasses import dataclass, field
 from typing import Optional, Literal
 

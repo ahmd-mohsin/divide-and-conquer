@@ -261,11 +261,19 @@ def main():
     
     try:
         import ollama
-        ollama.list()
+        # Try to list models - this will fail if Ollama isn't running
+        models = ollama.list()
         print("✓ Ollama is running\n")
-    except:
-        print("✗ Ollama not running. Start with: ollama serve")
-        return
+    except Exception as e:
+        # Check if it's a connection error specifically
+        error_str = str(e).lower()
+        if "connection" in error_str or "refused" in error_str:
+            print("✗ Ollama not running. Start with: ollama serve")
+            return
+        else:
+            # Ollama is running but returned an error - continue anyway
+            print(f"⚠ Ollama check warning: {e}")
+            print("Continuing anyway...\n")
     
     problems = load_math_problems(args.category, args.num_problems)
     print(f"✓ Loaded {len(problems)} problems\n")
