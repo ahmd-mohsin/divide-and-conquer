@@ -54,8 +54,9 @@ class Decomposition(BaseModel):
     problem: str = Field(..., description="Original problem statement")
     depth_limit: int = Field(..., description="Maximum hierarchy depth")
     branching_limit: int = Field(..., description="Maximum children per node")
-    nodes: conlist(SubProblem, min_length=1) = Field(
+    nodes: List[SubProblem] = Field(
         ...,
+        min_items=1,
         description="List of all sub-problems in the hierarchy"
     )
     

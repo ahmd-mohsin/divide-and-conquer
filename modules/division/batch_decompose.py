@@ -11,6 +11,7 @@ if current_dir not in sys.path:
 from hcot_decomposer import quick_decompose
 from utils import save_decomposition
 from schemas import Decomposition
+from decomposition_scorer import score_decomposition
 from pathlib import Path
 import json
 import time
@@ -70,6 +71,9 @@ class DecompositionDataset:
         decomp_file = self.decomp_dir / f"{decomp_id}.json"
         save_decomposition(decomposition, decomp_file)
         
+        # Score the decomposition
+        scores = score_decomposition(decomposition, problem, category)
+        
         entry = {
             "id": decomp_id,
             "problem": problem,
@@ -81,7 +85,8 @@ class DecompositionDataset:
             "depth": decomposition.depth_limit,
             "branching": decomposition.branching_limit,
             "created_at": datetime.now().isoformat(),
-            "metadata": metadata or {}
+            "metadata": metadata or {},
+            "quality_scores": scores  # Add quality metrics
         }
         
         self.index.append(entry)
