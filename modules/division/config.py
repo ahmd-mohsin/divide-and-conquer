@@ -15,7 +15,7 @@ from typing import Optional, Literal
 @dataclass
 class ModelConfig:
     """Configuration for a specific model."""
-    provider: Literal["ollama", "openai", "anthropic"]
+    provider: Literal["ollama", "openai", "anthropic", "huggingface"]
     model_name: str
     temperature: float = 0.2
     max_tokens: int = 8192
@@ -119,14 +119,24 @@ def get_model_config(model_id: str, **kwargs) -> ModelConfig:
     Get a model configuration by ID.
     
     Args:
-        model_id: Model identifier (e.g., "llama3.1:8b", "gpt-4")
+        model_id: Model identifier (e.g., "llama3.1:8b", "gpt-4", "hf:meta-llama/Meta-Llama-3-8B-Instruct")
         **kwargs: Override any config parameters
     
     Returns:
         ModelConfig instance
     """
+    # Handle HuggingFace models with "hf:" prefix
+    if model_id.startswith("hf:"):
+        model_name = model_id[3:]  # Remove "hf:" prefix
+        config = ModelConfig(
+            provider="huggingface",
+            model_name=model_name,
+            temperature=0.2,
+            max_tokens=8192,
+            api_key=os.getenv("HF_TOKEN")
+        )
     # Check predefined configs
-    if model_id in OLLAMA_MODELS:
+    elif model_id in OLLAMA_MODELS:
         config = OLLAMA_MODELS[model_id]
     elif model_id in API_MODELS:
         config = API_MODELS[model_id]

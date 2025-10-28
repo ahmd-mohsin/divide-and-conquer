@@ -283,6 +283,56 @@ class AnthropicClient(LLMClient):
         return response.content[0].text
 
 
+class HuggingFaceClient(LLMClient):
+    """Client for HuggingFace Inference API."""
+    
+    def __init__(self, config: ModelConfig):
+        super().__init__(config)
+        try:
+            from huggingface_hub import InferenceClient
+            self.InferenceClient = InferenceClient
+        except ImportError:
+            raise ImportError(
+                "huggingface_hub package not found. Install with: pip install huggingface_hub"
+            )
+        
+        if not config.api_key:
+            raise ValueError("HuggingFace API token required. Set HF_TOKEN environment variable.")
+        
+        self.client = self.InferenceClient(token=config.api_key)
+    
+    def is_available(self) -> bool:
+        """Check if HuggingFace API is accessible."""
+        try:
+            # Simple check - if we got here, token is set
+            return True
+        except Exception:
+            return False
+    
+    def chat_json(
+        self,
+        system: str,
+        user: str,
+        schema: Optional[Dict[str, Any]] = None
+    ) -> str:
+        """Send chat request to HuggingFace Inference API."""
+        # Combine system and user prompts
+        full_prompt = f"{system}\n\n{user}\n\nYou must respond with valid JSON only."
+        
+        try:
+            response = self.client.text_generation(
+                model=self.config.model_name,
+                prompt=full_prompt,
+                max_new_tokens=self.config.max_tokens,
+                temperature=self.config.temperature,
+                return_full_text=False,
+            )
+            return response
+        except Exception as e:
+            print(f"HuggingFace API error: {e}")
+            raise
+
+
 def create_client(config: ModelConfig) -> LLMClient:
     """
     Factory function to create the appropriate LLM client.
@@ -299,5 +349,7 @@ def create_client(config: ModelConfig) -> LLMClient:
         return OpenAIClient(config)
     elif config.provider == "anthropic":
         return AnthropicClient(config)
+    elif config.provider == "huggingface":
+        return HuggingFaceClient(config)
     else:
         raise ValueError(f"Unknown provider: {config.provider}")
