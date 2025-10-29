@@ -314,18 +314,19 @@ def score_decomposition(
     m["redundancy_penalty"] = redundancy_penalty(decomp)
     m["overhead_penalty"] = overhead_penalty(decomp, problem_text)
     
-    # Aggregate score (normalized with stronger penalties)
+    # Aggregate score (properly normalized to [0,1])
+    # Positive components sum to 1.0, penalties subtract
     Q_total = (
-        0.50 * m["struct_valid"] +
+        0.30 * m["struct_valid"] +
         0.20 * m["coverage"] +
-        0.20 * m["check_rate"] +
-        0.15 * m["parallelism"] +
-        0.15 * m["independence"] +
-        0.15 * m["atomicity"] +
-        0.15 * m["step_sanity"] +
-        0.10 * m["width_profile"] -
+        0.15 * m["check_rate"] +
+        0.10 * m["parallelism"] +
+        0.10 * m["independence"] +
+        0.05 * m["atomicity"] +
+        0.05 * m["step_sanity"] +
+        0.05 * m["width_profile"] -
         0.30 * m["redundancy_penalty"] -
-        0.20 * m["overhead_penalty"] -
+        0.30 * m["overhead_penalty"] -
         0.10 * m["dead_end_penalty"]
     )
     
