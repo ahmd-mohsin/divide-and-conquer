@@ -4,6 +4,7 @@ import sys
 import os
 from pathlib import Path
 from typing import List, Tuple, Optional, Dict, Any
+
 current_dir = os.path.dirname(os.path.abspath(__file__))
 if current_dir not in sys.path:
     sys.path.insert(0, current_dir)
@@ -68,12 +69,14 @@ class HendrycksCompetitionMathLoader(MATHDatasetLoader):
         problems = []
         
         for i, item in enumerate(self._dataset):
+            # Filter by category if specified
             if category and item.get('type') != category:
                 continue
             
             problem = item['problem']
             solution = item['solution']
             
+            # Extract answer from solution (enclosed in \boxed{})
             answer = self._extract_answer(solution)
             
             metadata = {
@@ -165,8 +168,8 @@ def create_loader(dataset_name: str, split: str = "train") -> MATHDatasetLoader:
     Factory function to create appropriate data loader.
     
     Args:
-        dataset_name: Name of the dataset ('hendrycks_math', 'deepmind', etc.)
-        split: Dataset split (usually 'train' or 'test')
+        dataset_name: Name of the dataset ('hendrycks_math', 'minif2f', 'proofnet', 'deepmind')
+        split: Dataset split (usually 'train', 'valid', 'test', or 'validation')
     
     Returns:
         MATHDatasetLoader instance
@@ -175,15 +178,186 @@ def create_loader(dataset_name: str, split: str = "train") -> MATHDatasetLoader:
     
     if 'hendrycks' in dataset_name_lower or 'competition_math' in dataset_name_lower:
         return HendrycksCompetitionMathLoader(split)
+    elif 'minif2f' in dataset_name_lower:
+        return MiniF2FLoader(split)
+    elif 'proofnet' in dataset_name_lower:
+        # ProofNet typically uses 'validation' instead of 'train'
+        if split == "train":
+            split = "validation"
+        return ProofNetLoader(split)
     elif 'deepmind' in dataset_name_lower:
         return DeepMindMathLoader(split)
     else:
-        raise ValueError(f"Unknown dataset: {dataset_name}. Supported: 'hendrycks_math', 'deepmind'")
+        raise ValueError(
+            f"Unknown dataset: {dataset_name}. "
+            f"Supported: 'hendrycks_math', 'minif2f', 'proofnet', 'deepmind'"
+        )
+
+
+class MiniF2FLoader(MATHDatasetLoader):
+    """Loader for Tonic/MiniF2F dataset (Formal Mathematics)."""
+    
+    def __init__(self, split: str = "train"):
+        super().__init__("Tonic/MiniF2F", split)
+        self._load_dataset()
+    
+    def _load_dataset(self):
+        """Load the dataset from Hugging Face."""
+        try:
+            from datasets import load_dataset
+        except ImportError:
+            raise ImportError(
+                "datasets package not found. Install with: pip install datasets --break-system-packages"
+            )
+        
+        print(f"Loading {self.dataset_name} dataset...")
+        self._dataset = load_dataset(self.dataset_name, split=self.split)
+        print(f"✓ Loaded {len(self._dataset)} problems")
+    
+    def load(self, max_problems: Optional[int] = None, category: Optional[str] = None) -> List[Tuple[str, str, Dict[str, Any]]]:
+        """
+        Load problems from MiniF2F dataset.
+        
+        Args:
+            max_problems: Maximum number of problems to load
+            category: Filter by split type ('train', 'valid', 'test')
+        
+        Returns:
+            List of (problem, answer, metadata) tuples
+        """
+        if self._dataset is None:
+            self._load_dataset()
+        
+        problems = []
+        
+        for i, item in enumerate(self._dataset):
+            # Filter by category (split type) if specified
+            if category and item.get('split') != category:
+                continue
+            
+            # Use informal_prefix as the problem statement
+            problem = item.get('informal_prefix', item.get('name', 'No problem statement'))
+            
+            # The answer/goal is in the 'goal' field
+            answer = item.get('goal', '[Goal not specified]')
+            
+            metadata = {
+                'type': 'Formal Mathematics',
+                'level': item.get('split', 'Unknown'),
+                'name': item.get('name', f'problem_{i}'),
+                'formal_statement': item.get('formal_statement', ''),
+                'header': item.get('header', ''),
+                'dataset': self.dataset_name,
+                'index': i
+            }
+            
+            problems.append((problem, answer, metadata))
+            
+            if max_problems and len(problems) >= max_problems:
+                break
+        
+        return problems
+    
+    def get_categories(self) -> List[str]:
+        """Get list of split types in the dataset."""
+        if self._dataset is None:
+            self._load_dataset()
+        
+        splits = set()
+        for item in self._dataset:
+            if 'split' in item:
+                splits.add(item['split'])
+        
+        return sorted(list(splits))
+
+
+class ProofNetLoader(MATHDatasetLoader):
+    """Loader for hoskinson-center/proofnet dataset."""
+    
+    def __init__(self, split: str = "validation"):
+        super().__init__("hoskinson-center/proofnet", split)
+        self._load_dataset()
+    
+    def _load_dataset(self):
+        """Load the dataset from Hugging Face."""
+        try:
+            from datasets import load_dataset
+        except ImportError:
+            raise ImportError(
+                "datasets package not found. Install with: pip install datasets --break-system-packages"
+            )
+        
+        print(f"Loading {self.dataset_name} dataset...")
+        self._dataset = load_dataset(self.dataset_name, split=self.split)
+        print(f"✓ Loaded {len(self._dataset)} problems")
+    
+    def load(self, max_problems: Optional[int] = None, category: Optional[str] = None) -> List[Tuple[str, str, Dict[str, Any]]]:
+        """
+        Load problems from ProofNet dataset.
+        
+        Args:
+            max_problems: Maximum number of problems to load
+            category: Filter by problem source (e.g., 'Rudin', 'aime')
+        
+        Returns:
+            List of (problem, answer, metadata) tuples
+        """
+        if self._dataset is None:
+            self._load_dataset()
+        
+        problems = []
+        
+        for i, item in enumerate(self._dataset):
+            # Extract category from problem ID (e.g., "Rudin|exercise_1_1a" -> "Rudin")
+            problem_id = item.get('id', '')
+            problem_category = problem_id.split('|')[0] if '|' in problem_id else 'Unknown'
+            
+            # Filter by category if specified
+            if category and problem_category.lower() != category.lower():
+                continue
+            
+            # Use nl_statement as the problem
+            problem = item.get('nl_statement', 'No problem statement')
+            
+            # Use nl_proof as the answer/solution
+            answer = item.get('nl_proof', '[Proof not available]')
+            
+            metadata = {
+                'type': problem_category,
+                'level': 'Undergraduate',
+                'problem_id': problem_id,
+                'formal_statement': item.get('formal_statement', ''),
+                'dataset': self.dataset_name,
+                'index': i
+            }
+            
+            problems.append((problem, answer, metadata))
+            
+            if max_problems and len(problems) >= max_problems:
+                break
+        
+        return problems
+    
+    def get_categories(self) -> List[str]:
+        """Get list of problem sources in the dataset."""
+        if self._dataset is None:
+            self._load_dataset()
+        
+        categories = set()
+        for item in self._dataset:
+            problem_id = item.get('id', '')
+            if '|' in problem_id:
+                category = problem_id.split('|')[0]
+                categories.add(category)
+        
+        return sorted(list(categories))
 
 
 def get_available_datasets() -> List[str]:
     """Get list of available dataset loaders."""
     return [
-        "hendrycks_math (qwedsacf/competition_math)",
-        "deepmind (local/hardcoded)",
+        "hendrycks_math (qwedsacf/competition_math) - 12,500 competition problems",
+        "minif2f (Tonic/MiniF2F) - 488 formal mathematics problems",
+        "proofnet (hoskinson-center/proofnet) - 371 undergraduate theorem proving problems",
+        "deepmind (local/hardcoded) - Legacy examples",
     ]

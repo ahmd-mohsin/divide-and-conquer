@@ -5,6 +5,8 @@ Run this to test the system with a few problems from each dataset.
 """
 import sys
 import os
+
+# Add current directory to path
 current_dir = os.path.dirname(os.path.abspath(__file__))
 if current_dir not in sys.path:
     sys.path.insert(0, current_dir)
@@ -21,24 +23,31 @@ def test_dataset_loading():
     print("TESTING DATASET LOADING")
     print("="*70 + "\n")
     
+    # List available datasets
     print("Available datasets:")
     for ds in get_available_datasets():
         print(f"  - {ds}")
     print()
+    
+    # Test Hendrycks MATH dataset
     print("Loading Hendrycks MATH dataset...")
     try:
         loader = create_loader("hendrycks_math")
+        
+        # Get categories
         categories = loader.get_categories()
         print(f"✓ Found {len(categories)} categories:")
         for cat in categories[:5]:  # Show first 5
             print(f"    - {cat}")
         if len(categories) > 5:
             print(f"    ... and {len(categories) - 5} more")
-
+        
+        # Load a few problems
         print("\nLoading 3 sample problems...")
         problems = loader.load(max_problems=3)
         print(f"✓ Loaded {len(problems)} problems\n")
-
+        
+        # Display samples
         for i, (problem, answer, metadata) in enumerate(problems, 1):
             print(f"Problem {i}:")
             print(f"  Type: {metadata.get('type', 'Unknown')}")
