@@ -2,8 +2,6 @@
 """Universal batch decomposition for multiple MATH datasets."""
 import sys
 import os
-
-# Add current directory to path for local imports
 current_dir = os.path.dirname(os.path.abspath(__file__))
 if current_dir not in sys.path:
     sys.path.insert(0, current_dir)
@@ -95,8 +93,7 @@ class DecompositionDataset:
         }
         
         self.index.append(entry)
-        
-        # Update aggregate metadata
+    
         self.metadata["total_decompositions"] += 1
         if model not in self.metadata["models_used"]:
             self.metadata["models_used"].append(model)
@@ -139,19 +136,12 @@ class DecompositionDataset:
         }
         
         for entry in self.index:
-            # By model
             model = entry["model"]
             stats["by_model"][model] = stats["by_model"].get(model, 0) + 1
-            
-            # By category
             cat = entry["category"]
             stats["by_category"][cat] = stats["by_category"].get(cat, 0) + 1
-            
-            # By dataset
             dataset = entry["dataset"]
             stats["by_dataset"][dataset] = stats["by_dataset"].get(dataset, 0) + 1
-            
-            # By level
             level = entry["level"]
             stats["by_level"][level] = stats["by_level"].get(level, 0) + 1
         
@@ -407,8 +397,6 @@ Examples:
     for model, model_stats in stats['by_model'].items():
         success_rate = (model_stats['successful'] / model_stats['attempted'] * 100) if model_stats['attempted'] > 0 else 0
         print(f"  {model}: {model_stats['successful']}/{model_stats['attempted']} ({success_rate:.1f}%)")
-    
-    # Show dataset statistics
     dataset_stats = dataset.get_statistics()
     if dataset_stats:
         print(f"\nDataset statistics:")
