@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-"""Universal batch decomposition for multiple MATH datasets."""
 import sys
 import os
 current_dir = os.path.dirname(os.path.abspath(__file__))
