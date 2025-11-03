@@ -10,6 +10,11 @@ import os
 from pathlib import Path
 from typing import List, Dict, Any, Optional, Tuple
 import json
+from sentence_transformers import SentenceTransformer
+import numpy as np
+
+# Global model instance (load once)
+_similarity_model = None
 
 # Add parent directory to path for imports
 current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -34,6 +39,14 @@ except ImportError:
     from llm_clients import create_client, LLMClient
     from utils import get_execution_order
 
+
+def get_similarity_model():
+    """Load sentence transformer model once."""
+    global _similarity_model
+    if _similarity_model is None:
+        print("Loading sentence-transformers model for semantic similarity...")
+        _similarity_model = SentenceTransformer('all-MiniLM-L6-v2')
+    return _similarity_model
 
 class HierarchicalChainExecutor:
     """Executes hierarchical reasoning chains through subproblems in dependency order."""
@@ -156,7 +169,7 @@ class HierarchicalChainExecutor:
         """Execute a single reasoning chain through all subproblems."""
         
         # Storage for intermediate results
-        subproblem_results = {}  # {subproblem_id: result}
+        subproblem_results = {}
         execution_steps = []
         
         # Execute each wave in order
@@ -194,15 +207,18 @@ class HierarchicalChainExecutor:
                     'dependencies_used': list(dependency_results.keys())
                 })
         
-        # Extract final answer (from last step or synthesis)
+        # Extract final answer
         final_answer = self._extract_final_answer(
             execution_steps=execution_steps,
             problem=problem,
             ground_truth=ground_truth
         )
         
-        # Compute reward based on final answer
-        final_reward = self._compute_reward(final_answer, ground_truth)
+        # BUILD FULL REASONING TEXT FOR SEMANTIC SIMILARITY
+        full_reasoning = self._build_full_reasoning_text(execution_steps, final_answer)
+        
+        # Compute reward with semantic similarity
+        final_reward = self._compute_reward(final_answer, ground_truth, full_reasoning)
         
         return {
             'chain_id': f"chain_{chain_index}",
@@ -210,8 +226,24 @@ class HierarchicalChainExecutor:
             'final_answer': final_answer,
             'final_reward': final_reward,
             'num_steps': len(execution_steps),
-            'temperature': self.temperature
+            'temperature': self.temperature,
+            'full_reasoning': full_reasoning  # Store for analysis
         }
+    
+    def _build_full_reasoning_text(self, execution_steps: List[Dict[str, Any]], final_answer: str) -> str:
+        """Build complete reasoning chain as single text for semantic similarity."""
+        
+        parts = []
+        
+        for i, step in enumerate(execution_steps, 1):
+            parts.append(f"Step {i}: {step['goal']}")
+            parts.append(f"Reasoning: {step['reasoning']}")
+            parts.append(f"Result: {step['answer']}")
+            parts.append("")  # Blank line
+        
+        parts.append(f"Final Answer: {final_answer}")
+        
+        return "\n".join(parts)
     
     def _execute_subproblem_step(
         self,
@@ -404,12 +436,13 @@ FINAL ANSWER:"""
                 return execution_steps[-1]['answer']
             return "[Synthesis failed]"
     
-    def _compute_reward(self, predicted: Optional[str], ground_truth: str) -> float:
+    def _compute_reward(self, predicted: Optional[str], ground_truth: str, full_reasoning: str = "") -> float:
         """
-        Compute reward by comparing predicted answer with ground truth.
+        Compute reward with semantic similarity fallback.
         
         Returns:
-            1.0 if correct, 0.0 if incorrect
+            1.0 if exact match
+            0.0-0.99 based on semantic similarity if no match
         """
         if predicted is None:
             return 0.0
@@ -422,19 +455,46 @@ FINAL ANSWER:"""
         if pred_normalized == gt_normalized:
             return 1.0
         
-        # Try numeric comparison
+        # Try numeric comparison (small error tolerance)
         try:
             pred_num = float(pred_normalized)
             gt_num = float(gt_normalized)
             
-            # Allow small numerical error
-            if abs(pred_num - gt_num) < 1e-6:
+            # Within 0.1% error
+            if abs(pred_num - gt_num) < abs(gt_num * 0.001):
                 return 1.0
         except (ValueError, TypeError):
             pass
         
+        # SEMANTIC SIMILARITY FALLBACK
+        if full_reasoning:
+            try:
+                model = get_similarity_model()
+                
+                # Embed the full reasoning chain
+                reasoning_embedding = model.encode(full_reasoning, convert_to_numpy=True)
+                
+                # Embed the ground truth (use as simple string if no full solution available)
+                gt_text = f"The answer is {ground_truth}"
+                gt_embedding = model.encode(gt_text, convert_to_numpy=True)
+                
+                # Cosine similarity
+                similarity = np.dot(reasoning_embedding, gt_embedding) / (
+                    np.linalg.norm(reasoning_embedding) * np.linalg.norm(gt_embedding)
+                )
+                
+                # Convert similarity (-1 to 1) to reward (0 to 0.95)
+                # Cap at 0.95 so exact matches are still clearly better
+                semantic_reward = max(0.0, min(0.95, (similarity + 1) / 2 * 0.95))
+                
+                return semantic_reward
+                
+            except Exception as e:
+                print(f"Warning: Semantic similarity computation failed: {e}")
+                return 0.0
+        
         return 0.0
-    
+        
     def _normalize_answer(self, answer: str) -> str:
         """Normalize answer for comparison."""
         if answer is None:
