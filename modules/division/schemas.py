@@ -79,44 +79,63 @@ class Decomposition(BaseModel):
         return next((n for n in self.nodes if n.id == node_id), None)
     
 
+    def get_node(self, node_id: str):
+        """Get a node by its ID."""
+        if isinstance(self.nodes, dict):
+            return self.nodes.get(node_id)
+        elif isinstance(self.nodes, list):
+            for node in self.nodes:
+                if node.id == node_id:
+                    return node
+        return None
+
     def get_execution_waves(self) -> List[List[str]]:
         """
         Get execution waves (topological ordering of subproblems).
         Returns list of waves, where each wave contains subproblem IDs
         that can be executed in parallel.
         """
-        # Build dependency graph
+        # Convert nodes to dict for easy access
+        if isinstance(self.nodes, list):
+            nodes_dict = {node.id: node for node in self.nodes}
+        else:
+            nodes_dict = self.nodes
+        
+        # Build dependency graph (in-degree count)
         in_degree = {}
-        for node_id, node in self.nodes.items():
-            in_degree[node_id] = len(node.depends_on)
+        for node_id, node in nodes_dict.items():
+            depends_on = getattr(node, 'depends_on', []) or []
+            in_degree[node_id] = len(depends_on)
         
         waves = []
         completed = set()
         
-        while len(completed) < len(self.nodes):
-            # Find nodes with no remaining dependencies
+        # Topological sort by waves
+        while len(completed) < len(nodes_dict):
+            # Find nodes with no remaining dependencies (in-degree = 0)
             current_wave = []
             for node_id, degree in in_degree.items():
                 if node_id not in completed and degree == 0:
                     current_wave.append(node_id)
             
             if not current_wave:
-                # Circular dependency or error
-                # Just return remaining nodes as one wave
-                remaining = [nid for nid in self.nodes if nid not in completed]
+                # No nodes available (circular dependency or error)
+                # Add all remaining nodes as final wave
+                remaining = [nid for nid in nodes_dict.keys() if nid not in completed]
                 if remaining:
                     waves.append(remaining)
                 break
             
+            # Add this wave
             waves.append(current_wave)
             completed.update(current_wave)
             
-            # Update in-degrees
+            # Update in-degrees (reduce count for nodes that depended on current wave)
             for node_id in current_wave:
-                node = self.nodes[node_id]
-                # Find nodes that depend on this node
-                for other_id, other_node in self.nodes.items():
-                    if node_id in other_node.depends_on:
+                # Find all nodes that depend on this completed node
+                for other_id, other_node in nodes_dict.items():
+                    depends_on = getattr(other_node, 'depends_on', []) or []
+                    if node_id in depends_on:
                         in_degree[other_id] -= 1
         
         return waves
