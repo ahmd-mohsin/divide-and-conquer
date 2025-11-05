@@ -78,6 +78,49 @@ class Decomposition(BaseModel):
         """Get a specific node by ID."""
         return next((n for n in self.nodes if n.id == node_id), None)
     
+
+    def get_execution_waves(self) -> List[List[str]]:
+        """
+        Get execution waves (topological ordering of subproblems).
+        Returns list of waves, where each wave contains subproblem IDs
+        that can be executed in parallel.
+        """
+        # Build dependency graph
+        in_degree = {}
+        for node_id, node in self.nodes.items():
+            in_degree[node_id] = len(node.depends_on)
+        
+        waves = []
+        completed = set()
+        
+        while len(completed) < len(self.nodes):
+            # Find nodes with no remaining dependencies
+            current_wave = []
+            for node_id, degree in in_degree.items():
+                if node_id not in completed and degree == 0:
+                    current_wave.append(node_id)
+            
+            if not current_wave:
+                # Circular dependency or error
+                # Just return remaining nodes as one wave
+                remaining = [nid for nid in self.nodes if nid not in completed]
+                if remaining:
+                    waves.append(remaining)
+                break
+            
+            waves.append(current_wave)
+            completed.update(current_wave)
+            
+            # Update in-degrees
+            for node_id in current_wave:
+                node = self.nodes[node_id]
+                # Find nodes that depend on this node
+                for other_id, other_node in self.nodes.items():
+                    if node_id in other_node.depends_on:
+                        in_degree[other_id] -= 1
+        
+        return waves
+        
     def validate_hierarchy(self) -> tuple[bool, List[str]]:
         """
         Validate the hierarchy structure.

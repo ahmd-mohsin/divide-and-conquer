@@ -237,9 +237,10 @@ def batch_generate_code_chains(
             
             prompts_file = "hcot_prompts.json"
             if not os.path.exists(prompts_file):
-                division_prompts = os.path.join(parent_dir, "division", "hcot_prompts.json")
+                division_prompts = os.path.join(division_dir, "hcot_prompts.json")  
                 if os.path.exists(division_prompts):
                     prompts_file = division_prompts
+
             
             decomposition = quick_decompose(
                 problem=problem,
