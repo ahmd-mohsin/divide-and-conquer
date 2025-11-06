@@ -143,7 +143,8 @@ def batch_generate_code_chains(
     depth: int = 3,
     branching: int = 3,
     verbose: bool = True,
-    delay: float = 1.0
+    delay: float = 1.0,
+    start_from: int = 0
 ) -> Dict[str, Any]:
     """
     Main pipeline for code problems: Load -> Decompose -> Generate -> Reward.
@@ -162,6 +163,7 @@ def batch_generate_code_chains(
         branching: Decomposition branching
         verbose: Print progress
         delay: Delay between problems (seconds)
+        start_from: Start from problem N (skip first N problems)
     
     Returns:
         Statistics dictionary
@@ -182,10 +184,17 @@ def batch_generate_code_chains(
         print(f"{'='*70}\n")
     
     loader = create_code_loader(dataset_name)
-    problems = loader.load(max_problems=num_problems)
+    
+    # Load problems with offset support
+    all_problems = loader.load(max_problems=num_problems + start_from)
+    problems = all_problems[start_from:] if start_from > 0 else all_problems
     
     if verbose:
-        print(f"✓ Loaded {len(problems)} problems")
+        if start_from > 0:
+            print(f"✓ Loaded {len(all_problems)} problems (starting from problem {start_from + 1})")
+            print(f"✓ Processing {len(problems)} problems")
+        else:
+            print(f"✓ Loaded {len(problems)} problems")
     
     # Initialize reward calculator
     reward_calculator = CodeRewardCalculator(
@@ -223,8 +232,10 @@ def batch_generate_code_chains(
     for i, (problem, solution, metadata) in enumerate(problems, 1):
         stats["total_attempted"] += 1
         
+        actual_problem_num = i + start_from
+        
         if verbose:
-            print(f"\n[{i}/{len(problems)}] Processing problem")
+            print(f"\n[{actual_problem_num}/{num_problems + start_from}] Processing problem")
             print(f"  Dataset: {metadata.get('dataset', 'Unknown')}")
             print(f"  Type: {metadata.get('type', 'Unknown')}")
             print(f"  Difficulty: {metadata.get('difficulty', 'Unknown')}")
@@ -240,7 +251,6 @@ def batch_generate_code_chains(
                 division_prompts = os.path.join(division_dir, "hcot_prompts.json")  
                 if os.path.exists(division_prompts):
                     prompts_file = division_prompts
-
             
             decomposition = quick_decompose(
                 problem=problem,
@@ -345,6 +355,8 @@ def main():
                        help="Decomposition depth")
     parser.add_argument("--branching", type=int, default=3,
                        help="Decomposition branching")
+    parser.add_argument("--start-from", type=int, default=0,
+                       help="Start from problem N (skip first N problems)")
     parser.add_argument("--delay", type=float, default=1.0,
                        help="Delay between problems")
     parser.add_argument("--quiet", action="store_true",
@@ -380,7 +392,8 @@ def main():
         depth=args.depth,
         branching=args.branching,
         verbose=not args.quiet,
-        delay=args.delay
+        delay=args.delay,
+        start_from=args.start_from
     )
     
     elapsed = time.time() - start_time
