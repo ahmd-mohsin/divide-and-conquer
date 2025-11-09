@@ -442,8 +442,8 @@ def print_summary(aggregate: Dict):
 
 def main():
     # Configuration
-    chains_dir1 = Path("chains_calc_gsm8k/chains")
-    chains_dir2 = Path("gsm8k_deepseek_r1/chains")
+    chains_dir1 = Path("/home/ahmed/Divide-and-Conquer/data/chains_calc_gsm8k/chains")
+    chains_dir2 = Path("/home/ahmed/Divide-and-Conquer/data/gsm8k_deepseek_r1/chains")
     model1_name = "Qwen-7B"
     model2_name = "DeepSeek-R1-14B"
     max_problems = 100
