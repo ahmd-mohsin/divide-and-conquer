@@ -1,16 +1,16 @@
 #!/usr/bin/env python3
 """
-Decomposition Quality Evaluation
-Compare decompositions from two models using three metric categories.
+Decomposition Quality Evaluation (Independent Sampling)
+Evaluates 100 problems from each model independently using three metric categories.
 
 Place in: ~/Divide-and-Conquer/data/evaluation/
 Run from: ~/Divide-and-Conquer/data/
 """
 
 import json
-import os
+import random
 from pathlib import Path
-from typing import Dict, List, Tuple, Any
+from typing import Dict, List, Any
 from collections import defaultdict, Counter
 import numpy as np
 from dataclasses import dataclass, asdict
@@ -54,23 +54,15 @@ class LFCMetrics:
 
 
 @dataclass
-class ComparisonResult:
-    """Comparison for one problem"""
+class ProblemEvaluation:
+    """Evaluation for one problem"""
     problem_id: str
     problem_text: str
-    model1_name: str
-    model2_name: str
-    model1_subproblems: int
-    model2_subproblems: int
-    model1_dag: DAGMetrics
-    model2_dag: DAGMetrics
-    model1_faith: FaithfulnessMetrics
-    model2_faith: FaithfulnessMetrics
-    model1_lfc: LFCMetrics
-    model2_lfc: LFCMetrics
-    model1_overall: float
-    model2_overall: float
-    winner: str
+    num_subproblems: int
+    dag_metrics: DAGMetrics
+    faithfulness_metrics: FaithfulnessMetrics
+    lfc_metrics: LFCMetrics
+    overall_score: float
 
 
 class DecompositionAnalyzer:
@@ -125,7 +117,7 @@ class DecompositionAnalyzer:
         
         step_sizes = [len(G.nodes[n].get('reasoning', '').split()) for n in G.nodes()]
         avg_step_size = np.mean(step_sizes) if step_sizes else 0
-        step_size_cv = np.std(step_sizes) / max(avg_step_size, 1)
+        step_size_cv = np.std(step_sizes) / max(avg_step_size, 1) if avg_step_size > 0 else 0
         
         if not has_cycle and len(G) > 0:
             try:
@@ -277,60 +269,9 @@ class DecompositionAnalyzer:
         lfc_score = 0.25 * (type_consistency + closure_rate + skill_diversity + reuse_potential)
         
         return LFCMetrics(type_consistency, closure_rate, skill_diversity, reuse_potential, lfc_score)
-
-
-class DecompositionComparator:
-    """Compare two decompositions"""
     
-    def __init__(self):
-        self.analyzer = DecompositionAnalyzer()
-    
-    def load_dataset(self, chains_dir: Path) -> Dict[str, Dict]:
-        """Load all problems from chains directory"""
-        problems = {}
-        for problem_file in sorted(chains_dir.glob("problem_*.json")):
-            with open(problem_file, 'r') as f:
-                data = json.load(f)
-                problems[data.get('problem', '')] = data
-        return problems
-    
-    def find_matching_problems(
-        self, dataset1: Dict[str, Dict], dataset2: Dict[str, Dict], max_problems: int = 100
-    ) -> List[Tuple[str, Dict, Dict]]:
-        """Find problems in both datasets"""
-        common = set(dataset1.keys()) & set(dataset2.keys())
-        return [(p, dataset1[p], dataset2[p]) for p in sorted(common)[:max_problems]]
-    
-    def compare_problem(
-        self, problem_text: str, data1: Dict, data2: Dict,
-        model1_name: str, model2_name: str
-    ) -> ComparisonResult:
-        """Compare two decompositions"""
-        G1 = self.analyzer.build_dag(data1)
-        G2 = self.analyzer.build_dag(data2)
-        
-        dag1 = self.analyzer.compute_dag_metrics(G1, data1)
-        dag2 = self.analyzer.compute_dag_metrics(G2, data2)
-        faith1 = self.analyzer.compute_faithfulness_metrics(G1, data1)
-        faith2 = self.analyzer.compute_faithfulness_metrics(G2, data2)
-        lfc1 = self.analyzer.compute_lfc_metrics(G1, data1)
-        lfc2 = self.analyzer.compute_lfc_metrics(G2, data2)
-        
-        score1 = self._compute_overall_score(dag1, faith1, lfc1)
-        score2 = self._compute_overall_score(dag2, faith2, lfc2)
-        
-        winner = model1_name if score1 > score2 else (model2_name if score2 > score1 else "Tie")
-        
-        return ComparisonResult(
-            data1.get('decomposition_id', 'unknown'), problem_text[:100] + "...",
-            model1_name, model2_name,
-            data1.get('num_subproblems', 0), data2.get('num_subproblems', 0),
-            dag1, dag2, faith1, faith2, lfc1, lfc2,
-            score1, score2, winner
-        )
-    
-    def _compute_overall_score(self, dag: DAGMetrics, faith: FaithfulnessMetrics, lfc: LFCMetrics) -> float:
-        """Compute overall quality score"""
+    def compute_overall_score(self, dag: DAGMetrics, faith: FaithfulnessMetrics, lfc: LFCMetrics) -> float:
+        """Compute overall quality score (0-1, higher = better)"""
         dag_score = (
             (1.0 if dag.topo_sort_exists else 0.0) * 0.3 +
             (dag.parallelism / max(dag.work, 1)) * 0.2 +
@@ -348,24 +289,54 @@ class DecompositionComparator:
         lfc_score = lfc.lfc_score * 0.3
         
         return dag_score + faith_score + lfc_score
+    
+    def evaluate_problem(self, problem_data: Dict) -> ProblemEvaluation:
+        """Evaluate a single problem"""
+        G = self.build_dag(problem_data)
+        
+        dag_metrics = self.compute_dag_metrics(G, problem_data)
+        faith_metrics = self.compute_faithfulness_metrics(G, problem_data)
+        lfc_metrics = self.compute_lfc_metrics(G, problem_data)
+        overall_score = self.compute_overall_score(dag_metrics, faith_metrics, lfc_metrics)
+        
+        return ProblemEvaluation(
+            problem_id=problem_data.get('decomposition_id', 'unknown'),
+            problem_text=problem_data.get('problem', '')[:100] + "...",
+            num_subproblems=problem_data.get('num_subproblems', 0),
+            dag_metrics=dag_metrics,
+            faithfulness_metrics=faith_metrics,
+            lfc_metrics=lfc_metrics,
+            overall_score=overall_score
+        )
 
 
-def aggregate_results(results: List[ComparisonResult]) -> Dict:
-    """Aggregate comparison results"""
-    if not results:
+def load_and_sample_dataset(chains_dir: Path, num_samples: int = 100) -> List[Dict]:
+    """Load dataset and sample N problems"""
+    problem_files = sorted(list(chains_dir.glob("problem_*.json")))
+    
+    if len(problem_files) < num_samples:
+        print(f"  Warning: Only {len(problem_files)} problems available, using all")
+        sampled_files = problem_files
+    else:
+        sampled_files = random.sample(problem_files, num_samples)
+    
+    problems = []
+    for problem_file in sampled_files:
+        with open(problem_file, 'r') as f:
+            problems.append(json.load(f))
+    
+    return problems
+
+
+def aggregate_evaluations(evaluations: List[ProblemEvaluation]) -> Dict:
+    """Aggregate evaluation metrics"""
+    if not evaluations:
         return {}
-    
-    model1_name = results[0].model1_name
-    model2_name = results[0].model2_name
-    
-    model1_wins = sum(1 for r in results if r.winner == model1_name)
-    model2_wins = sum(1 for r in results if r.winner == model2_name)
-    ties = sum(1 for r in results if r.winner == "Tie")
     
     def avg_attr(attr_path: str) -> float:
         values = []
-        for r in results:
-            obj = r
+        for eval_result in evaluations:
+            obj = eval_result
             for part in attr_path.split('.'):
                 obj = getattr(obj, part)
             if isinstance(obj, bool):
@@ -374,70 +345,58 @@ def aggregate_results(results: List[ComparisonResult]) -> Dict:
         return np.mean(values)
     
     return {
-        "total_problems": len(results),
-        "wins": {model1_name: model1_wins, model2_name: model2_wins, "ties": ties},
-        "win_rates": {model1_name: model1_wins / len(results), model2_name: model2_wins / len(results)},
-        "avg_subproblems": {model1_name: avg_attr("model1_subproblems"), model2_name: avg_attr("model2_subproblems")},
+        "total_problems": len(evaluations),
+        "avg_subproblems": avg_attr("num_subproblems"),
         "dag_metrics": {
-            "avg_depth": {model1_name: avg_attr("model1_dag.depth"), model2_name: avg_attr("model2_dag.depth")},
-            "avg_parallelism": {model1_name: avg_attr("model1_dag.parallelism"), model2_name: avg_attr("model2_dag.parallelism")},
-            "avg_justified_edge_rate": {model1_name: avg_attr("model1_dag.justified_edge_rate"), model2_name: avg_attr("model2_dag.justified_edge_rate")},
-            "avg_duplicate_goal_rate": {model1_name: avg_attr("model1_dag.duplicate_goal_rate"), model2_name: avg_attr("model2_dag.duplicate_goal_rate")}
+            "avg_depth": avg_attr("dag_metrics.depth"),
+            "avg_parallelism": avg_attr("dag_metrics.parallelism"),
+            "avg_justified_edge_rate": avg_attr("dag_metrics.justified_edge_rate"),
+            "avg_duplicate_goal_rate": avg_attr("dag_metrics.duplicate_goal_rate"),
+            "pct_valid_dags": avg_attr("dag_metrics.topo_sort_exists") * 100
         },
         "faithfulness_metrics": {
-            "avg_redundancy_rate": {model1_name: avg_attr("model1_faith.redundancy_rate"), model2_name: avg_attr("model2_faith.redundancy_rate")},
-            "avg_dependency_usage": {model1_name: avg_attr("model1_faith.avg_dependency_usage"), model2_name: avg_attr("model2_faith.avg_dependency_usage")},
-            "avg_specificity": {model1_name: avg_attr("model1_faith.specificity_score"), model2_name: avg_attr("model2_faith.specificity_score")}
+            "avg_redundancy_rate": avg_attr("faithfulness_metrics.redundancy_rate"),
+            "avg_dependency_usage": avg_attr("faithfulness_metrics.avg_dependency_usage"),
+            "avg_specificity": avg_attr("faithfulness_metrics.specificity_score")
         },
         "lfc_metrics": {
-            "avg_type_consistency": {model1_name: avg_attr("model1_lfc.type_consistency"), model2_name: avg_attr("model2_lfc.type_consistency")},
-            "avg_skill_diversity": {model1_name: avg_attr("model1_lfc.skill_diversity"), model2_name: avg_attr("model2_lfc.skill_diversity")},
-            "avg_lfc_score": {model1_name: avg_attr("model1_lfc.lfc_score"), model2_name: avg_attr("model2_lfc.lfc_score")}
+            "avg_type_consistency": avg_attr("lfc_metrics.type_consistency"),
+            "avg_skill_diversity": avg_attr("lfc_metrics.skill_diversity"),
+            "avg_lfc_score": avg_attr("lfc_metrics.lfc_score")
         },
-        "overall_scores": {model1_name: avg_attr("model1_overall"), model2_name: avg_attr("model2_overall")}
+        "overall_score": avg_attr("overall_score")
     }
 
 
-def print_summary(aggregate: Dict):
-    """Print comparison summary"""
-    print("\n" + "="*80)
-    print("DECOMPOSITION QUALITY COMPARISON")
-    print("="*80)
+def print_summary(model_name: str, aggregate: Dict):
+    """Print evaluation summary"""
+    print(f"\n{'='*80}")
+    print(f"{model_name} - EVALUATION SUMMARY")
+    print('='*80)
     
-    model1_name = list(aggregate["wins"].keys())[0]
-    model2_name = list(aggregate["wins"].keys())[1]
-    
-    print(f"\nProblems: {aggregate['total_problems']}")
-    print(f"\nWins:")
-    print(f"  {model1_name}: {aggregate['wins'][model1_name]} ({aggregate['win_rates'][model1_name]:.1%})")
-    print(f"  {model2_name}: {aggregate['wins'][model2_name]} ({aggregate['win_rates'][model2_name]:.1%})")
-    print(f"  Ties: {aggregate['wins']['ties']}")
-    
-    print(f"\nAvg Subproblems:")
-    print(f"  {model1_name}: {aggregate['avg_subproblems'][model1_name]:.1f}")
-    print(f"  {model2_name}: {aggregate['avg_subproblems'][model2_name]:.1f}")
+    print(f"\nProblems evaluated: {aggregate['total_problems']}")
+    print(f"Avg subproblems: {aggregate['avg_subproblems']:.1f}")
     
     print(f"\n--- DAG Structural Quality ---")
-    print(f"Depth: {model1_name}={aggregate['dag_metrics']['avg_depth'][model1_name]:.2f}, {model2_name}={aggregate['dag_metrics']['avg_depth'][model2_name]:.2f}")
-    print(f"Parallelism: {model1_name}={aggregate['dag_metrics']['avg_parallelism'][model1_name]:.2f}, {model2_name}={aggregate['dag_metrics']['avg_parallelism'][model2_name]:.2f}")
-    print(f"Edge Justification: {model1_name}={aggregate['dag_metrics']['avg_justified_edge_rate'][model1_name]:.2%}, {model2_name}={aggregate['dag_metrics']['avg_justified_edge_rate'][model2_name]:.2%}")
+    print(f"  Valid DAGs: {aggregate['dag_metrics']['pct_valid_dags']:.1f}%")
+    print(f"  Avg depth: {aggregate['dag_metrics']['avg_depth']:.2f}")
+    print(f"  Avg parallelism: {aggregate['dag_metrics']['avg_parallelism']:.2f}")
+    print(f"  Edge justification rate: {aggregate['dag_metrics']['avg_justified_edge_rate']:.2%}")
+    print(f"  Duplicate goal rate: {aggregate['dag_metrics']['avg_duplicate_goal_rate']:.2%}")
     
     print(f"\n--- Faithfulness & Minimality ---")
-    print(f"Redundancy: {model1_name}={aggregate['faithfulness_metrics']['avg_redundancy_rate'][model1_name]:.2%}, {model2_name}={aggregate['faithfulness_metrics']['avg_redundancy_rate'][model2_name]:.2%}")
-    print(f"Dependency Usage: {model1_name}={aggregate['faithfulness_metrics']['avg_dependency_usage'][model1_name]:.2%}, {model2_name}={aggregate['faithfulness_metrics']['avg_dependency_usage'][model2_name]:.2%}")
-    print(f"Specificity: {model1_name}={aggregate['faithfulness_metrics']['avg_specificity'][model1_name]:.2%}, {model2_name}={aggregate['faithfulness_metrics']['avg_specificity'][model2_name]:.2%}")
+    print(f"  Redundancy rate: {aggregate['faithfulness_metrics']['avg_redundancy_rate']:.2%}")
+    print(f"  Dependency usage: {aggregate['faithfulness_metrics']['avg_dependency_usage']:.2%}")
+    print(f"  Specificity score: {aggregate['faithfulness_metrics']['avg_specificity']:.2%}")
     
     print(f"\n--- Compositional Skill (LFC) ---")
-    print(f"Type Consistency: {model1_name}={aggregate['lfc_metrics']['avg_type_consistency'][model1_name]:.2%}, {model2_name}={aggregate['lfc_metrics']['avg_type_consistency'][model2_name]:.2%}")
-    print(f"Skill Diversity: {model1_name}={aggregate['lfc_metrics']['avg_skill_diversity'][model1_name]:.2%}, {model2_name}={aggregate['lfc_metrics']['avg_skill_diversity'][model2_name]:.2%}")
+    print(f"  Type consistency: {aggregate['lfc_metrics']['avg_type_consistency']:.2%}")
+    print(f"  Skill diversity: {aggregate['lfc_metrics']['avg_skill_diversity']:.2%}")
+    print(f"  LFC score: {aggregate['lfc_metrics']['avg_lfc_score']:.3f}")
     
-    print(f"\n--- Overall Scores ---")
-    print(f"{model1_name}: {aggregate['overall_scores'][model1_name]:.3f}")
-    print(f"{model2_name}: {aggregate['overall_scores'][model2_name]:.3f}")
-    
-    winner = model1_name if aggregate['win_rates'][model1_name] > aggregate['win_rates'][model2_name] else model2_name
-    print(f"\n🏆 WINNER: {winner}")
-    print("="*80 + "\n")
+    print(f"\n--- Overall Quality Score ---")
+    print(f"  Score (0-1): {aggregate['overall_score']:.3f}")
+    print('='*80)
 
 
 def main():
@@ -446,47 +405,98 @@ def main():
     chains_dir2 = Path("/home/ahmed/Divide-and-Conquer/data/gsm8k_deepseek_r1/chains")
     model1_name = "Qwen-7B"
     model2_name = "DeepSeek-R1-14B"
-    max_problems = 100
+    num_samples = 100
     
     print("="*80)
-    print("DECOMPOSITION EVALUATION")
+    print("INDEPENDENT DECOMPOSITION EVALUATION")
     print("="*80)
-    print(f"\nModel 1: {model1_name} ({chains_dir1})")
-    print(f"Model 2: {model2_name} ({chains_dir2})")
-    print(f"Max problems: {max_problems}\n")
+    print(f"\nModel 1: {model1_name}")
+    print(f"  Path: {chains_dir1}")
+    print(f"\nModel 2: {model2_name}")
+    print(f"  Path: {chains_dir2}")
+    print(f"\nSamples per model: {num_samples}")
     
-    # Load and compare
-    comparator = DecompositionComparator()
-    dataset1 = comparator.load_dataset(chains_dir1)
-    dataset2 = comparator.load_dataset(chains_dir2)
+    # Set random seed for reproducibility
+    random.seed(42)
     
-    print(f"Loaded: {model1_name}={len(dataset1)}, {model2_name}={len(dataset2)}")
+    analyzer = DecompositionAnalyzer()
     
-    matches = comparator.find_matching_problems(dataset1, dataset2, max_problems)
-    print(f"Matching problems: {len(matches)}\n")
+    # Evaluate Model 1
+    print(f"\n{'='*80}")
+    print(f"Evaluating {model1_name}...")
+    print('='*80)
     
-    if not matches:
-        print("ERROR: No matching problems!")
-        return
+    problems1 = load_and_sample_dataset(chains_dir1, num_samples)
+    print(f"Loaded {len(problems1)} problems")
     
-    print("Comparing decompositions...")
-    results = []
-    for i, (problem_text, data1, data2) in enumerate(matches, 1):
-        print(f"  [{i}/{len(matches)}] {problem_text[:60]}...")
-        results.append(comparator.compare_problem(problem_text, data1, data2, model1_name, model2_name))
+    evaluations1 = []
+    for i, problem_data in enumerate(problems1, 1):
+        print(f"  [{i}/{len(problems1)}] {problem_data.get('problem', '')[:60]}...")
+        evaluations1.append(analyzer.evaluate_problem(problem_data))
+    
+    aggregate1 = aggregate_evaluations(evaluations1)
+    print_summary(model1_name, aggregate1)
+    
+    # Evaluate Model 2
+    print(f"\n{'='*80}")
+    print(f"Evaluating {model2_name}...")
+    print('='*80)
+    
+    problems2 = load_and_sample_dataset(chains_dir2, num_samples)
+    print(f"Loaded {len(problems2)} problems")
+    
+    evaluations2 = []
+    for i, problem_data in enumerate(problems2, 1):
+        print(f"  [{i}/{len(problems2)}] {problem_data.get('problem', '')[:60]}...")
+        evaluations2.append(analyzer.evaluate_problem(problem_data))
+    
+    aggregate2 = aggregate_evaluations(evaluations2)
+    print_summary(model2_name, aggregate2)
     
     # Save results
-    aggregate = aggregate_results(results)
-    
     output_file = Path("evaluation/results.json")
     output_file.parent.mkdir(exist_ok=True)
+    
+    results = {
+        "metadata": {
+            "num_samples_per_model": num_samples,
+            "random_seed": 42
+        },
+        model1_name: {
+            "summary": aggregate1,
+            "detailed": [asdict(e) for e in evaluations1]
+        },
+        model2_name: {
+            "summary": aggregate2,
+            "detailed": [asdict(e) for e in evaluations2]
+        }
+    }
+    
     with open(output_file, 'w') as f:
-        json.dump({"summary": aggregate, "detailed": [asdict(r) for r in results]}, f, indent=2)
+        json.dump(results, f, indent=2)
     
-    print(f"\n✓ Saved: {output_file}")
+    print(f"\n✓ Saved results to: {output_file}")
     
-    # Print summary
-    print_summary(aggregate)
+    # Comparison
+    print(f"\n{'='*80}")
+    print("COMPARISON")
+    print('='*80)
+    
+    score1 = aggregate1['overall_score']
+    score2 = aggregate2['overall_score']
+    
+    print(f"\nOverall Scores:")
+    print(f"  {model1_name}: {score1:.3f}")
+    print(f"  {model2_name}: {score2:.3f}")
+    
+    if score1 > score2:
+        print(f"\n🏆 WINNER: {model1_name} (+{score1-score2:.3f})")
+    elif score2 > score1:
+        print(f"\n🏆 WINNER: {model2_name} (+{score2-score1:.3f})")
+    else:
+        print(f"\n🤝 TIE")
+    
+    print('='*80 + "\n")
 
 
 if __name__ == "__main__":
