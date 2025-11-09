@@ -1,14 +1,15 @@
 #!/usr/bin/env python3
 """
-Batch Chain Generation
+Batch Chain Generation with Resume Capability
 Processes math datasets through decomposition and chain expansion pipeline with proper ground truth handling.
+Supports resuming from where it left off.
 """
 import sys
 import os
 from pathlib import Path
 import json
 import time
-from typing import List, Dict, Any, Optional
+from typing import List, Dict, Any, Optional, Set
 from datetime import datetime
 
 # Add parent directory to path
@@ -67,6 +68,14 @@ class ChainDataset:
             with open(self.index_file, 'r') as f:
                 return json.load(f)
         return []
+    
+    def get_processed_problems(self) -> Set[str]:
+        """Get set of problem texts that have already been processed"""
+        return set(entry["problem"] for entry in self.index)
+    
+    def get_last_problem_index(self) -> int:
+        """Get the index of the last processed problem"""
+        return len(self.index)
     
     def add_problem_chains(
         self,
@@ -165,7 +174,8 @@ def batch_generate_chains(
     depth: int = 3,
     branching: int = 3,
     verbose: bool = True,
-    delay: float = 1.0
+    delay: float = 1.0,
+    resume: bool = True
 ) -> Dict[str, Any]:
     """
     Main pipeline: Load dataset -> Decompose -> Generate chains -> Store.
@@ -183,6 +193,7 @@ def batch_generate_chains(
         branching: Decomposition branching factor
         verbose: Print progress
         delay: Delay between problems (seconds)
+        resume: Resume from last checkpoint if True
     
     Returns:
         Statistics dictionary
@@ -193,8 +204,30 @@ def batch_generate_chains(
         "total_successful": 0,
         "total_failed": 0,
         "total_chains_generated": 0,
-        "failures": []
+        "failures": [],
+        "resumed": False,
+        "start_index": 0
     }
+    
+    # Initialize dataset
+    chain_dataset = ChainDataset(output_dir=output_dir)
+    
+    # Check for resume
+    start_index = 0
+    if resume:
+        last_index = chain_dataset.get_last_problem_index()
+        if last_index > 0:
+            stats["resumed"] = True
+            stats["start_index"] = last_index
+            start_index = last_index
+            
+            if verbose:
+                print(f"\n{'='*70}")
+                print(f"RESUMING FROM CHECKPOINT")
+                print(f"{'='*70}")
+                print(f"Already processed: {last_index} problems")
+                print(f"Starting from index: {start_index}")
+                print()
     
     # Load dataset with proper ground truth extraction
     if verbose:
@@ -206,13 +239,23 @@ def batch_generate_chains(
     problems = loader.load(max_problems=num_problems)
     
     if verbose:
-        print(f"✓ Loaded {len(problems)} problems")
+        print(f"✓ Loaded {len(problems)} problems total")
+        if start_index > 0:
+            remaining = len(problems) - start_index
+            print(f"✓ Resuming: {remaining} problems remaining")
+        
         # Verify ground truths are loaded
         empty_gt_count = sum(1 for p, gt, m in problems if not gt or gt == "")
         if empty_gt_count > 0:
             print(f"⚠ WARNING: {empty_gt_count} problems have empty ground truth!")
         else:
             print(f"✓ All problems have valid ground truth")
+    
+    # Skip already processed problems
+    if start_index > 0:
+        problems = problems[start_index:]
+        if verbose:
+            print(f"\n✓ Skipped first {start_index} problems (already processed)")
     
     # Initialize hierarchical chain executor
     if verbose:
@@ -228,20 +271,17 @@ def batch_generate_chains(
         verbose=verbose
     )
     
-    # Initialize dataset
-    chain_dataset = ChainDataset(output_dir=output_dir)
-    
     # Process each problem
     if verbose:
         print(f"\n{'='*70}")
         print(f"PROCESSING PROBLEMS")
         print(f"{'='*70}\n")
     
-    for i, (problem, ground_truth, metadata) in enumerate(problems, 1):
+    for i, (problem, ground_truth, metadata) in enumerate(problems, start_index + 1):
         stats["total_attempted"] += 1
         
         if verbose:
-            print(f"\n[{i}/{len(problems)}] Processing problem")
+            print(f"\n[{i}/{num_problems}] Processing problem")
             print(f"  Dataset: {metadata.get('dataset', 'Unknown')}")
             print(f"  Type: {metadata.get('type', 'Unknown')}")
             print(f"  Difficulty: {metadata.get('difficulty', 'Unknown')}")
@@ -253,6 +293,7 @@ def batch_generate_chains(
             print(f"  ⚠ WARNING: Empty ground truth - skipping problem")
             stats["total_failed"] += 1
             stats["failures"].append({
+                "index": i,
                 "problem": problem[:100],
                 "error": "Empty ground truth",
                 "metadata": metadata
@@ -320,10 +361,12 @@ def batch_generate_chains(
             
             if verbose:
                 print(f"\n  ✓ Saved as {problem_id}")
+                print(f"  Progress: {i}/{num_problems} ({i/num_problems*100:.1f}%)")
         
         except Exception as e:
             stats["total_failed"] += 1
             stats["failures"].append({
+                "index": i,
                 "problem": problem[:100],
                 "error": str(e),
                 "metadata": metadata
@@ -335,7 +378,7 @@ def batch_generate_chains(
                 traceback.print_exc()
         
         # Delay between problems
-        if i < len(problems):
+        if i < num_problems:
             time.sleep(delay)
     
     # Save final dataset
@@ -348,7 +391,7 @@ def main():
     import argparse
     
     parser = argparse.ArgumentParser(
-        description="Generate chains for math problems with hierarchical decomposition"
+        description="Generate chains for math problems with hierarchical decomposition (with resume support)"
     )
     
     parser.add_argument("--dataset", default="gsm8k",
@@ -373,13 +416,15 @@ def main():
                        help="Decomposition branching")
     parser.add_argument("--delay", type=float, default=1.0,
                        help="Delay between problems")
+    parser.add_argument("--no-resume", action="store_true",
+                       help="Start from beginning (ignore checkpoint)")
     parser.add_argument("--quiet", action="store_true",
                        help="Suppress output")
     
     args = parser.parse_args()
     
     print("\n" + "="*70)
-    print("HIERARCHICAL CHAIN GENERATION WITH PROPER GROUND TRUTH")
+    print("HIERARCHICAL CHAIN GENERATION WITH RESUME SUPPORT")
     print("="*70 + "\n")
     
     # Check Ollama
@@ -405,7 +450,8 @@ def main():
         depth=args.depth,
         branching=args.branching,
         verbose=not args.quiet,
-        delay=args.delay
+        delay=args.delay,
+        resume=not args.no_resume
     )
     
     elapsed = time.time() - start_time
@@ -414,6 +460,10 @@ def main():
     print("\n" + "="*70)
     print("CHAIN GENERATION COMPLETE")
     print("="*70)
+    
+    if stats["resumed"]:
+        print(f"✓ Resumed from index: {stats['start_index']}")
+    
     print(f"Time: {elapsed:.1f}s ({elapsed/60:.1f} minutes)")
     print(f"Success: {stats['total_successful']}/{stats['total_attempted']}")
     print(f"Failed: {stats['total_failed']}")

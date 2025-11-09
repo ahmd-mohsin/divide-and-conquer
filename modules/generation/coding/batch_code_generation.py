@@ -130,6 +130,29 @@ class CodeChainDataset:
             json.dump(self.index, f, indent=2)
 
 
+# ---------------------- NEW: resume helper ----------------------
+def compute_resume_offset(output_dir: str, dataset_name: str, generation_model: str) -> int:
+    """
+    Read the existing index file and count how many entries were saved
+    for the given dataset+model. That count is the start_from offset.
+    """
+    idx_path = Path(output_dir) / "code_chain_index.json"
+    if not idx_path.exists():
+        return 0
+    try:
+        with open(idx_path, "r") as f:
+            idx = json.load(f)
+    except Exception:
+        return 0
+
+    count = 0
+    for e in idx:
+        if e.get("dataset") == dataset_name and e.get("model") == generation_model:
+            count += 1
+    return count
+# ---------------------------------------------------------------
+
+
 def batch_generate_code_chains(
     dataset_name: str,
     num_problems: int = 10,
@@ -144,7 +167,8 @@ def batch_generate_code_chains(
     branching: int = 3,
     verbose: bool = True,
     delay: float = 1.0,
-    start_from: int = 0
+    start_from: int = 0,
+    resume: bool = False   # NEW
 ) -> Dict[str, Any]:
     """
     Main pipeline for code problems: Load -> Decompose -> Generate -> Reward.
@@ -164,6 +188,7 @@ def batch_generate_code_chains(
         verbose: Print progress
         delay: Delay between problems (seconds)
         start_from: Start from problem N (skip first N problems)
+        resume: If True, compute start_from from index for this dataset+model
     
     Returns:
         Statistics dictionary
@@ -184,7 +209,16 @@ def batch_generate_code_chains(
         print(f"{'='*70}\n")
     
     loader = create_code_loader(dataset_name)
-    
+
+    # NEW: auto-resume logic
+    if resume:
+        auto_offset = compute_resume_offset(output_dir, dataset_name, generation_model)
+        if auto_offset > 0:
+            if verbose:
+                print(f"↻ Resume enabled: found {auto_offset} previously saved problems "
+                      f"for dataset='{dataset_name}', model='{generation_model}'")
+            start_from = max(start_from, auto_offset)
+
     # Load problems with offset support
     all_problems = loader.load(max_problems=num_problems + start_from)
     problems = all_problems[start_from:] if start_from > 0 else all_problems
@@ -361,6 +395,8 @@ def main():
                        help="Delay between problems")
     parser.add_argument("--quiet", action="store_true",
                        help="Suppress output")
+    parser.add_argument("--resume", action="store_true",
+                       help="Resume from last saved problem for this dataset+model in output_dir")  # NEW
     
     args = parser.parse_args()
     
@@ -393,7 +429,8 @@ def main():
         branching=args.branching,
         verbose=not args.quiet,
         delay=args.delay,
-        start_from=args.start_from
+        start_from=args.start_from,
+        resume=args.resume,  # NEW
     )
     
     elapsed = time.time() - start_time
